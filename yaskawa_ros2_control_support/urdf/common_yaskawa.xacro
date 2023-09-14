@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<robot name="$(arg robot_name)" xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:arg name="robot_name" default="yaskawa" />
+  <xacro:arg name="prefix" default="" />
+  <xacro:arg name="description_package" default="" />
+  <xacro:arg name="description_macro_file" default="" />
+
+  <!-- ros2_control mock and simulation plugins -->
+  <xacro:arg name="use_mock_hardware" default="false" />
+  <xacro:arg name="sim_gazebo_classic" default="false" />
+  <xacro:arg name="sim_gazebo" default="false" />
+  <xacro:arg name="simulation_controllers" default="" />
+
+  <xacro:property name="description_package" value="$(arg description_package)"/>
+  <xacro:property name="description_macro_file" value="$(arg description_macro_file)"/>
+  <xacro:property name="robot_name" value="$(arg robot_name)"/>
+  <!-- convert to property to use substitution in function -->
+  <xacro:include filename="$(find ${description_package})/urdf/${description_macro_file}"/>
+
+  <xacro:include filename="$(find yaskawa_ros2_control_support)/urdf/common_macro.ros2_control.xacro"/>
+
+  <xacro:yaskawa_common_ros2_control_macro
+    name="$(arg robot_name)"
+    prefix="$(arg prefix)"
+    use_mock_hardware="$(arg use_mock_hardware)"
+    sim_gazebo_classic="$(arg sim_gazebo_classic)"
+    sim_gazebo="$(arg sim_gazebo)"
+    simulation_controllers="$(arg simulation_controllers)"
+    description_package="$(arg description_package)"
+  />
+
+  <xacro:if value="${description_package == 'motoman_gp280_support'}">
+    <xacro:motoman_gp280 prefix="$(arg prefix)"/>
+  </xacro:if>
+
+</robot>

@@ -4,10 +4,10 @@
   <name>motoman_gp280_support</name>
   <version>0.3.5</version>
   <description>
-    <p>ROS-Industrial support for the Motoman GP50 (and variants).</p>
+    <p>ROS-Industrial support for the Motoman GP280 (and variants).</p>
     <p>
       This package contains configuration data, 3D models and launch files
-      for Motoman GP50 manipulators.
+      for Motoman GP280 manipulators.
     </p>
     <p>
       <b>Specifications</b>
