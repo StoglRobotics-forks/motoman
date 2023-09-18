@@ -243,19 +243,69 @@ def generate_launch_description():
     kinematics_yaml = load_yaml(
         "yaskawa_common_moveit", "config/kinematics.yaml"
     )
-
+    move_group_config = {
+        "planning_pipelines": ["ompl", "pilz", "stomp"],
+        "capabilities": [],
+    }
     # Planning Functionality
     ompl_planning_pipeline_config = {
-        "move_group": {
+        "ompl": {
             "planning_plugin": "ompl_interface/OMPLPlanner",
-            "request_adapters": """default_planner_request_adapters/AddTimeOptimalParameterization default_planner_request_adapters/ResolveConstraintFrames default_planner_request_adapters/FixWorkspaceBounds default_planner_request_adapters/FixStartStateBounds default_planner_request_adapters/FixStartStateCollision default_planner_request_adapters/FixStartStatePathConstraints""",
+            "request_adapters": """default_planner_request_adapters/AddTimeOptimalParameterization default_planner_request_adapters/ResolveConstraintFrames default_planner_request_adapters/FixWorkspaceBounds default_planner_request_adapters/FixStartStateBounds default_planner_request_adapters/FixStartStatePathConstraints""",
             "start_state_max_bounds_error": 0.1,
         }
+    }
+
+    pilz_planning_pipeline_config = {
+        "pilz": {
+            "planning_plugin": "pilz_industrial_motion_planner/CommandPlanner",
+            "default_planner_config": "PTP"
+        },
+        #"pilz_lin": {
+        #    "planning_plugin": "pilz_industrial_motion_planner/CommandPlanner",
+        #    "default_planner_config": "LIN",
+        #}
     }
     ompl_planning_yaml = load_yaml(
         "yaskawa_common_moveit", "config/ompl_planning.yaml"
     )
-    ompl_planning_pipeline_config["move_group"].update(ompl_planning_yaml)
+    ompl_planning_pipeline_config["ompl"].update(ompl_planning_yaml)
+    # WARNING default_planner_request_adapters/FixStartStateCollision might cause jumps if the robot is in a slight collision at start, deactivating it for now
+    # see https://github.com/ros-planning/moveit/issues/2268
+    pilz_planning_yaml = load_yaml(
+        "yaskawa_common_moveit", "config/pilz_planning.yaml"
+    )
+    pilz_planning_pipeline_config["pilz"].update(pilz_planning_yaml)
+    
+    pilz_capabilities_yaml = load_yaml(
+        "yaskawa_common_moveit", "config/pilz_capabilities.yaml"
+    )
+    move_group_config.update(pilz_capabilities_yaml)
+
+    pilz_limits_yaml = load_yaml(
+        "yaskawa_common_moveit", "config/pilz_cartesian_limits.yaml"
+    )
+    robot_description_planning_config = {
+        "robot_description_planning" : pilz_limits_yaml
+    }
+    joint_limits_yaml = load_yaml(
+        "yaskawa_common_moveit", "config/joint_limits.yaml"
+    )
+
+    stomp_planning_pipeline_config = {
+            "stomp": {
+                "planning_plugin": "stomp_moveit/StompPlanner",
+            }
+    }
+
+    stomp_planning_yaml = load_yaml(
+        "yaskawa_common_moveit", "config/stomp_planning.yaml"
+    )
+    stomp_planning_pipeline_config["stomp"].update(stomp_planning_yaml)
+
+    robot_description_planning_config["robot_description_planning"].update(joint_limits_yaml)
+
+    # robot_description_planning_config["robot_description_planning"].update(joint_limits_yaml)
 
     # Trajectory Execution Functionality
     moveit_simple_controllers_yaml = load_yaml(
@@ -289,7 +339,11 @@ def generate_launch_description():
             robot_description,
             robot_description_semantic,
             kinematics_yaml,
+            move_group_config,
             ompl_planning_pipeline_config,
+            pilz_planning_pipeline_config,
+            stomp_planning_pipeline_config,
+            robot_description_planning_config,
             trajectory_execution,
             moveit_controllers,
             planning_scene_monitor_parameters,
@@ -303,7 +357,11 @@ def generate_launch_description():
         package="rviz2",
         executable="rviz2",
         name="rviz2",
-        output="log",
+        #output="log",
+        output={
+            'stdout': 'log',
+            'stderr': 'log'
+            },
         arguments=["-d", rviz_config],
         parameters=[
             robot_description,
