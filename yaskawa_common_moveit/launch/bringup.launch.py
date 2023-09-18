@@ -69,14 +69,14 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_package",
-            default_value = "motoman_gp280_support",
+            default_value = "motoman_gp250_support",
             description="Description package with robot URDF/xacro files.",
         )
     )
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_macro_file",
-            default_value = "gp280_macro.xacro",
+            default_value = "gp250_macro.xacro",
             description="URDF/XACRO description file with of the robot or application. \
             The expected location of the file is '<description_package>/urdf/'.",
         )

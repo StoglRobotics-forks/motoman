@@ -30,8 +30,8 @@
     description_package="$(arg description_package)"
   />
 
-  <xacro:if value="${description_package == 'motoman_gp280_support'}">
-    <xacro:motoman_gp280 prefix="$(arg prefix)"/>
+  <xacro:if value="${description_package == 'motoman_gp250_support'}">
+    <xacro:motoman_gp250 prefix="$(arg prefix)"/>
   </xacro:if>
 
 </robot>
