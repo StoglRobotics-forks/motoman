@@ -153,5 +153,5 @@ manipulator:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-  projection_evaluator: joints(joint_1_s,joint_2_l)
+  projection_evaluator: joints(group_1/joint_1,group_1/joint_2)
   longest_valid_segment_fraction: 0.005
