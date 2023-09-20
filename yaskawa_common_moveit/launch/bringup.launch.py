@@ -101,6 +101,15 @@ def generate_launch_description():
 
     declared_arguments.append(
         DeclareLaunchArgument(
+            "initial_positions_file",
+            default_value="initial_positions.yaml",
+            description="YAML file with the initial positions when using mock hardware from \
+            ros2_control. The expected location of the file is '<configuration_package>/config/'.",
+        )
+    )
+
+    declared_arguments.append(
+        DeclareLaunchArgument(
             "use_mock_hardware",
             default_value="true",
             description="Start robot with fake hardware mirroring command to its states.",
@@ -148,6 +157,7 @@ def generate_launch_description():
     description_macro_file = LaunchConfiguration("description_macro_file")
     configuration_package = LaunchConfiguration("configuration_package")
     controllers_file = LaunchConfiguration("controllers_file")
+    initial_positions_file = LaunchConfiguration("initial_positions_file")
 
     use_mock_hardware = LaunchConfiguration("use_mock_hardware")
 
@@ -156,6 +166,10 @@ def generate_launch_description():
     rviz_file = LaunchConfiguration("rviz_file")
 
     activate_ros2_control = LaunchConfiguration("activate_ros2_control")
+
+    initial_positions_file = PathJoinSubstitution(
+        [FindPackageShare(configuration_package), "config", initial_positions_file]
+    )
 
     robot_description_content = Command(
         [
@@ -180,6 +194,8 @@ def generate_launch_description():
             "use_mock_hardware:=",
             use_mock_hardware,
             " ",
+            # "initial_positions_file:=",
+            # initial_positions_file,
         ]
     )
     robot_description = {"robot_description": robot_description_content}

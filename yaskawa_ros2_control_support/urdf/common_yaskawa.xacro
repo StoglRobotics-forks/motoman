@@ -12,10 +12,13 @@
   <xacro:arg name="sim_gazebo" default="false" />
   <xacro:arg name="simulation_controllers" default="" />
 
+  <xacro:arg name="initial_positions_file" default="$(find yaskawa_ros2_control_support)/config/initial_positions.yaml"/>
+
   <xacro:property name="description_package" value="$(arg description_package)"/>
   <xacro:property name="description_macro_file" value="$(arg description_macro_file)"/>
   <xacro:property name="robot_name" value="$(arg robot_name)"/>
   <!-- convert to property to use substitution in function -->
+  <xacro:property name="initial_positions_file" default="$(arg initial_positions_file)"/>
   <xacro:include filename="$(find ${description_package})/urdf/${description_macro_file}"/>
 
   <xacro:include filename="$(find yaskawa_ros2_control_support)/urdf/common_macro.ros2_control.xacro"/>
@@ -28,6 +31,7 @@
     sim_gazebo="$(arg sim_gazebo)"
     simulation_controllers="$(arg simulation_controllers)"
     description_package="$(arg description_package)"
+    initial_positions="${xacro.load_yaml(initial_positions_file)}"
   />
 
   <xacro:if value="${description_package == 'motoman_gp250_support'}">
