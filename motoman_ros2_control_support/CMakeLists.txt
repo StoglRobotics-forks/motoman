@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(yaskawa_ros2_control_support)
+project(motoman_ros2_control_support)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -22,7 +22,7 @@ endforeach()
 add_executable(ros2_control_node_steady_clock src/ros2_control_node_steady_clock.cpp)
 target_include_directories(ros2_control_node_steady_clock PUBLIC
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include/yaskawa_ros2_control_support>
+  $<INSTALL_INTERFACE:include/motoman_ros2_control_support>
 )
 ament_target_dependencies(ros2_control_node_steady_clock PUBLIC ${THIS_PACKAGE_INCLUDE_DEPENDS})
 
@@ -40,13 +40,13 @@ endif()
 
 install(
   TARGETS ros2_control_node_steady_clock
-  RUNTIME DESTINATION lib/yaskawa_ros2_control_support
+  RUNTIME DESTINATION lib/motoman_ros2_control_support
 )
 
 
 install(
   DIRECTORY config urdf launch
-  DESTINATION share/yaskawa_ros2_control_support
+  DESTINATION share/motoman_ros2_control_support
 )
 
 

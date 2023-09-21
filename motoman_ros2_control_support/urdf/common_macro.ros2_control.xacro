@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="yaskawa_common_ros2_control_macro" params="
+  <xacro:macro name="motoman_common_ros2_control_macro" params="
                name
                prefix
                use_mock_hardware:=^|false

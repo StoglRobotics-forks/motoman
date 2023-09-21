@@ -18,9 +18,9 @@
   <!-- convert to property to use substitution in function -->
   <xacro:include filename="$(find ${description_package})/urdf/${description_macro_file}"/>
 
-  <xacro:include filename="$(find yaskawa_ros2_control_support)/urdf/common_macro.ros2_control.xacro"/>
+  <xacro:include filename="$(find motoman_ros2_control_support)/urdf/common_macro.ros2_control.xacro"/>
 
-  <xacro:yaskawa_common_ros2_control_macro
+  <xacro:motoman_common_ros2_control_macro
     name="$(arg robot_name)"
     prefix="$(arg prefix)"
     use_mock_hardware="$(arg use_mock_hardware)"
