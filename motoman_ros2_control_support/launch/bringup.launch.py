@@ -81,14 +81,14 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "configuration_package",
-            default_value="yaskawa_ros2_control_support",
+            default_value="motoman_ros2_control_support",
             description="Package with configuration files, e.g., controllers, initial positions.",
         )
     )
     declared_arguments.append(
         DeclareLaunchArgument(
             "controllers_file",
-            default_value="yaskawa_6dof_controllers.yaml",
+            default_value="motoman_6dof_controllers.yaml",
             description="YAML file with the controllers configuration. \
             The expected location of the file is '<configuration_package>/config/'.",
         )
@@ -189,7 +189,7 @@ def generate_launch_description():
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare("yaskawa_ros2_control_support"), "urdf", "common_yaskawa.xacro"]
+                [FindPackageShare("motoman_ros2_control_support"), "urdf", "common_motoman.xacro"]
             ),
             " ",
             "robot_name:=",

@@ -85,7 +85,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "configuration_package",
-            default_value="yaskawa_ros2_control_support",
+            default_value="motoman_ros2_control_support",
             description="The package with the yaml configurations",
         )
     )
@@ -93,7 +93,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "controllers_file",
-            default_value="yaskawa_6dof_controllers.yaml",
+            default_value="motoman_6dof_controllers.yaml",
             description="YAML file with the controllers configuration. \
             The expected location of the file is '<configuration_package>/config/'.",
         )
@@ -110,7 +110,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "moveit_config_package",
-            default_value="yaskawa_common_moveit",
+            default_value="motoman_common_moveit",
             description="Package with semantic robot description needed for MoveIt2.",
         )
     )
@@ -118,7 +118,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "semantic_description_file",
-            default_value="common_yaskawa.srdf.xacro",
+            default_value="common_motoman.srdf.xacro",
             description="Semantic robot description file (SRDF/XACRO) with of the robot or \
             application. The expected location of the file is '<moveit_config_package>/srdf/'.",
         )
@@ -162,7 +162,7 @@ def generate_launch_description():
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare("yaskawa_ros2_control_support"), "urdf", "common_yaskawa.xacro"]
+                [FindPackageShare("motoman_ros2_control_support"), "urdf", "common_motoman.xacro"]
             ),
             " ",
             "robot_name:=",
@@ -241,7 +241,7 @@ def generate_launch_description():
     }
 
     kinematics_yaml = load_yaml(
-        "yaskawa_common_moveit", "config/kinematics.yaml"
+        "motoman_common_moveit", "config/kinematics.yaml"
     )
     move_group_config = {
         "planning_pipelines": ["ompl", "pilz", "stomp"],
@@ -267,29 +267,29 @@ def generate_launch_description():
         #}
     }
     ompl_planning_yaml = load_yaml(
-        "yaskawa_common_moveit", "config/ompl_planning.yaml"
+        "motoman_common_moveit", "config/ompl_planning.yaml"
     )
     ompl_planning_pipeline_config["ompl"].update(ompl_planning_yaml)
     # WARNING default_planner_request_adapters/FixStartStateCollision might cause jumps if the robot is in a slight collision at start, deactivating it for now
     # see https://github.com/ros-planning/moveit/issues/2268
     pilz_planning_yaml = load_yaml(
-        "yaskawa_common_moveit", "config/pilz_planning.yaml"
+        "motoman_common_moveit", "config/pilz_planning.yaml"
     )
     pilz_planning_pipeline_config["pilz"].update(pilz_planning_yaml)
     
     pilz_capabilities_yaml = load_yaml(
-        "yaskawa_common_moveit", "config/pilz_capabilities.yaml"
+        "motoman_common_moveit", "config/pilz_capabilities.yaml"
     )
     move_group_config.update(pilz_capabilities_yaml)
 
     pilz_limits_yaml = load_yaml(
-        "yaskawa_common_moveit", "config/pilz_cartesian_limits.yaml"
+        "motoman_common_moveit", "config/pilz_cartesian_limits.yaml"
     )
     robot_description_planning_config = {
         "robot_description_planning" : pilz_limits_yaml
     }
     joint_limits_yaml = load_yaml(
-        "yaskawa_common_moveit", "config/joint_limits.yaml"
+        "motoman_common_moveit", "config/joint_limits.yaml"
     )
 
     stomp_planning_pipeline_config = {
@@ -299,7 +299,7 @@ def generate_launch_description():
     }
 
     stomp_planning_yaml = load_yaml(
-        "yaskawa_common_moveit", "config/stomp_planning.yaml"
+        "motoman_common_moveit", "config/stomp_planning.yaml"
     )
     stomp_planning_pipeline_config["stomp"].update(stomp_planning_yaml)
 
@@ -309,7 +309,7 @@ def generate_launch_description():
 
     # Trajectory Execution Functionality
     moveit_simple_controllers_yaml = load_yaml(
-        "yaskawa_common_moveit", "config/yaskawa_controllers.yaml"
+        "motoman_common_moveit", "config/motoman_controllers.yaml"
     )
     moveit_controllers = {
         "moveit_simple_controller_manager": moveit_simple_controllers_yaml,
