@@ -4,7 +4,7 @@
     <xacro:include filename="$(find motoman_resources)/urdf/common_materials.xacro"/>
 
     <!-- link list -->
-    <link name="${prefix}base_link">
+    <link name="base_link">
         <visual>
             <geometry>
                 <mesh filename="package://motoman_gp250_support/meshes/gp250/visual/base_link.stl"/>
@@ -99,49 +99,49 @@
     <!-- end of link list -->
 
     <!-- joint list -->
-    <joint name="${prefix}joint_1_s" type="revolute">
-        <parent link="${prefix}base_link"/>
+    <joint name="${prefix}joint_1" type="revolute">
+        <parent link="base_link"/>
         <child link="${prefix}link_1_s"/>
         <origin xyz="0 0 0.650" rpy="0 0 0" />
         <axis xyz="0 0 1" />
         <limit lower="${radians(-180)}" upper="${radians(180)}" effort="5516" velocity="${radians(180)}"/>
     </joint>
-    <joint name="${prefix}joint_2_l" type="revolute">
+    <joint name="${prefix}joint_2" type="revolute">
         <parent link="${prefix}link_1_s"/>
         <child link="${prefix}link_2_l"/>
         <origin xyz="0.285 0 0" rpy="0 0 0" />
         <axis xyz="0 1 0" />
         <limit lower="${radians(-60)}" upper="${radians(76)}" effort="7060" velocity="${radians(178)}"/>
     </joint>
-    <joint name="${prefix}joint_3_u" type="revolute">
+    <joint name="${prefix}joint_3" type="revolute">
         <parent link="${prefix}link_2_l"/>
         <child link="${prefix}link_3_u"/>
         <origin xyz="0 0 1.150" rpy="0 0 0" />
         <axis xyz="0 -1 0" />
         <limit lower="${radians(-77.8)}" upper="${radians(197)}" effort="3089" velocity="${radians(178)}"/>
     </joint>
-    <joint name="${prefix}joint_4_r" type="revolute">
+    <joint name="${prefix}joint_4" type="revolute">
         <parent link="${prefix}link_3_u"/>
         <child link="${prefix}link_4_r"/>
         <origin xyz="0 0 0.250" rpy="0 0 0" />
         <axis xyz="-1 0 0" />
         <limit lower="${radians(-360)}" upper="${radians(360)}" effort="926" velocity="${radians(250)}"/>
     </joint>
-    <joint name="${prefix}joint_5_b" type="revolute">
+    <joint name="${prefix}joint_5" type="revolute">
         <parent link="${prefix}link_4_r"/>
         <child link="${prefix}link_5_b"/>
         <origin xyz="1.285 0 0" rpy="0 0 0" />
         <axis xyz="0 -1 0" />
         <limit lower="${radians(-125)}" upper="${radians(125)}" effort="794" velocity="${radians(250)}"/>
     </joint>
-    <joint name="${prefix}joint_6_t" type="revolute">
+    <joint name="${prefix}joint_6" type="revolute">
         <parent link="${prefix}link_5_b"/>
         <child link="${prefix}link_6_t"/>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <axis xyz="-1 0 0" />
         <limit lower="${radians(-360)}" upper="${radians(360)}" effort="375" velocity="${radians(360)}"/>
     </joint>
-    <joint name="${prefix}joint_6_t-tool0" type="fixed">
+    <joint name="${prefix}joint_6-tool0" type="fixed">
         <origin xyz="0.250 0 0" rpy="3.1415926 -1.570796 0"/>
         <parent link="${prefix}link_6_t"/>
         <child link="${prefix}tool0"/>
@@ -149,7 +149,7 @@
     <!-- end of joint list -->
 
     <link name="${prefix}flange" />
-    <joint name="${prefix}joint_6_t-flange" type="fixed">
+    <joint name="${prefix}joint_6-flange" type="fixed">
         <origin xyz="0 0 0" rpy="0 ${radians(90)} 0" />
         <parent link="${prefix}link_6_t" />
         <child link="${prefix}flange" />
@@ -160,7 +160,7 @@
     <link name="${prefix}base" />
     <joint name="${prefix}base_link-base" type="fixed">
         <origin xyz="0 0 0.650" rpy="0 0 0"/>
-        <parent link="${prefix}base_link"/>
+        <parent link="base_link"/>
         <child link="${prefix}base"/>
     </joint>
 
