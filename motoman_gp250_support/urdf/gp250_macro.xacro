@@ -13,7 +13,7 @@
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/base_link.stl"/>
+                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/base_link_collision.stl"/>
             </geometry>
         </collision>
     </link>
@@ -26,7 +26,7 @@
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/link_1_s.stl"/>
+                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/link_1_s_collision.stl"/>
             </geometry>
         </collision>
     </link>
@@ -39,7 +39,7 @@
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/link_2_l.stl"/>
+                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/link_2_l_no_balancer_collision.stl"/>
             </geometry>
         </collision>
     </link>
@@ -52,7 +52,7 @@
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/link_3_u.stl"/>
+                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/link_3_u_collision.stl"/>
             </geometry>
         </collision>
     </link>
@@ -65,7 +65,7 @@
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/link_4_r.stl"/>
+                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/link_4_r_collision.stl"/>
             </geometry>
         </collision>
     </link>
@@ -78,7 +78,7 @@
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/link_5_b.stl"/>
+                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/link_5_b_collision.stl"/>
             </geometry>
         </collision>
     </link>
@@ -91,7 +91,7 @@
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/link_6_t.stl"/>
+                <mesh filename="package://motoman_gp250_support/meshes/gp250/collision/link_6_t_collision.stl"/>
             </geometry>
         </collision>
     </link>
