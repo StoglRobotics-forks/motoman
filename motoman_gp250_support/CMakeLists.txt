@@ -5,5 +5,5 @@ project(motoman_gp250_support)
 find_package(ament_cmake REQUIRED)
 ament_package()
 
-install(DIRECTORY meshes urdf launch
+install(DIRECTORY meshes urdf launch rviz
   DESTINATION share/${PROJECT_NAME})
