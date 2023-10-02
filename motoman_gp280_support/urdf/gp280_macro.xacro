@@ -7,91 +7,91 @@
     <link name="${prefix}base_link">
         <visual>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/base_link.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/base_link_visual.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/base_link.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/base_link_collision.stl"/>
             </geometry>
         </collision>
     </link>
     <link name="${prefix}link_1_s">
         <visual>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/link_1_s.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/link_1_s_visual.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/link_1_s.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/link_1_s_collision.stl"/>
             </geometry>
         </collision>
     </link>
     <link name="${prefix}link_2_l">
         <visual>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/link_2_l.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/link_2_l_visual.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/link_2_l.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/link_2_l_no_balancer_collision.stl"/>
             </geometry>
         </collision>
     </link>
     <link name="${prefix}link_3_u">
         <visual>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/link_3_u.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/link_3_u_visual.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/link_3_u.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/link_3_u_collision.stl"/>
             </geometry>
         </collision>
     </link>
     <link name="${prefix}link_4_r">
         <visual>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/link_4_r.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/link_4_r_visual.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/link_4_r.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/link_4_r_collision.stl"/>
             </geometry>
         </collision>
     </link>
     <link name="${prefix}link_5_b">
         <visual>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/link_5_b.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/link_5_b_visual.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/link_5_b.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/link_5_b_collision.stl"/>
             </geometry>
         </collision>
     </link>
     <link name="${prefix}link_6_t">
         <visual>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/link_6_t.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/visual/link_6_t_visual.stl"/>
             </geometry>
             <xacro:material_yaskawa_blue/>
         </visual>
         <collision>
             <geometry>
-                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/link_6_t.stl"/>
+                <mesh filename="package://motoman_gp280_support/meshes/gp280/collision/link_6_t_collision.stl"/>
             </geometry>
         </collision>
     </link>
