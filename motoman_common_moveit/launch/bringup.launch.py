@@ -53,14 +53,14 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "robot_name",
-            default_value="yaskawa",
+            default_value="motoman",
             description="Name of the robot or application for unique identification.",
         )
     )
     declared_arguments.append(
         DeclareLaunchArgument(
             "prefix",
-            default_value="",
+            default_value="group_1/",
             description="Prefix of the joint names, useful for \
         multi-robot setup. If changed than also joint names in the controllers' configuration \
         have to be updated.",
@@ -76,7 +76,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "description_macro_file",
-            default_value = "gp250_macro.xacro",
+            default_value = "gp250.xacro",
             description="URDF/XACRO description file with of the robot or application. \
             The expected location of the file is '<description_package>/urdf/'.",
         )
@@ -132,15 +132,6 @@ def generate_launch_description():
         )
     )
 
-    declared_arguments.append(
-        DeclareLaunchArgument(
-            "activate_ros2_control",
-            default_value="true",
-            description="Decide if this file should also start ros2_control stack and activate\
-            controllers. This is useful for testing, but nor advised in production."
-        )
-    )
-
     # initialize arguments
     robot_name = LaunchConfiguration("robot_name")
     prefix = LaunchConfiguration("prefix")
@@ -155,14 +146,12 @@ def generate_launch_description():
     semantic_description_file = LaunchConfiguration("semantic_description_file")
     rviz_file = LaunchConfiguration("rviz_file")
 
-    activate_ros2_control = LaunchConfiguration("activate_ros2_control")
-
     robot_description_content = Command(
         [
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare("motoman_ros2_control_support"), "urdf", "common_motoman.xacro"]
+                [FindPackageShare(description_package), "urdf", description_macro_file]
             ),
             " ",
             "robot_name:=",
@@ -170,15 +159,6 @@ def generate_launch_description():
             " ",
             "prefix:=",
             prefix,
-            " ",
-            "description_package:=",
-            description_package,
-            " ",
-            "description_macro_file:=",
-            description_macro_file,
-            " ",
-            "use_mock_hardware:=",
-            use_mock_hardware,
             " ",
         ]
     )
@@ -192,33 +172,6 @@ def generate_launch_description():
         output="both",
         parameters=[robot_description]
     )
-
-    # ros2_control_node
-    robot_controllers = PathJoinSubstitution(
-        [FindPackageShare(configuration_package), "config", controllers_file]
-    )
-    ros2_control_node = Node(
-        package="controller_manager",
-        executable="ros2_control_node",
-        parameters=[robot_description, robot_controllers],
-        output={
-            "stdout": "screen",
-            "stderr": "screen",
-        },
-        condition=IfCondition(activate_ros2_control),
-    )
-
-    # Spawn controllers
-    load_and_activate_controllers = []
-    for controller in ["position_trajectory_controller", "joint_state_broadcaster"]:
-        load_and_activate_controllers += [
-            ExecuteProcess(
-                cmd=[f"ros2 run controller_manager spawner {controller}"],
-                shell=True,
-                output="screen",
-                condition=IfCondition(activate_ros2_control),
-            )
-        ]
 
     # MoveIt2 Configuration
     robot_description_semantic_content = Command(
@@ -374,9 +327,7 @@ def generate_launch_description():
     return LaunchDescription(
         declared_arguments + [
             robot_state_publisher_node,
-            ros2_control_node,
             moveit_node,
             rviz_node,
         ]
-        + load_and_activate_controllers
     )

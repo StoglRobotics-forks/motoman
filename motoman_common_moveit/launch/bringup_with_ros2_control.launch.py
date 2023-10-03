@@ -53,7 +53,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "robot_name",
-            default_value="yaskawa",
+            default_value="motoman",
             description="Name of the robot or application for unique identification.",
         )
     )
@@ -85,7 +85,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "configuration_package",
-            default_value="yaskawa_ros2_control_support",
+            default_value="motoman_ros2_control_support",
             description="The package with the yaml configurations",
         )
     )
@@ -93,7 +93,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "controllers_file",
-            default_value="yaskawa_6dof_controllers.yaml",
+            default_value="motoman_6dof_controllers.yaml",
             description="YAML file with the controllers configuration. \
             The expected location of the file is '<configuration_package>/config/'.",
         )
@@ -118,7 +118,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "semantic_description_file",
-            default_value="common_yaskawa.srdf.xacro",
+            default_value="common_motoman.srdf.xacro",
             description="Semantic robot description file (SRDF/XACRO) with of the robot or \
             application. The expected location of the file is '<moveit_config_package>/srdf/'.",
         )
@@ -162,7 +162,7 @@ def generate_launch_description():
             PathJoinSubstitution([FindExecutable(name="xacro")]),
             " ",
             PathJoinSubstitution(
-                [FindPackageShare("yaskawa_ros2_control_support"), "urdf", "common_yaskawa.xacro"]
+                [FindPackageShare("motoman_ros2_control_support"), "urdf", "common_motoman.xacro"]
             ),
             " ",
             "robot_name:=",
@@ -309,7 +309,7 @@ def generate_launch_description():
 
     # Trajectory Execution Functionality
     moveit_simple_controllers_yaml = load_yaml(
-        "motoman_common_moveit", "config/yaskawa_controllers.yaml"
+        "motoman_common_moveit", "config/motoman_controllers.yaml"
     )
     moveit_controllers = {
         "moveit_simple_controller_manager": moveit_simple_controllers_yaml,

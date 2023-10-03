@@ -1,8 +1,8 @@
 controller_names:
-  - position_trajectory_controller
+  - follow_joint_trajectory
 
-position_trajectory_controller:
-  action_ns: follow_joint_trajectory
+follow_joint_trajectory:
+  action_ns: ""
   type: FollowJointTrajectory
   default: true
   joints:

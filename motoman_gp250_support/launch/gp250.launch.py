@@ -16,8 +16,6 @@ def generate_launch_description():
   # Set the path to this package.
   pkg_share = FindPackageShare(package='motoman_gp250_support').find('motoman_gp250_support')
  
-
- 
   # Set the path to the URDF file
   default_urdf_model_path = os.path.join(pkg_share, 'urdf/gp250.xacro')
 
@@ -55,7 +53,7 @@ def generate_launch_description():
      
   declare_use_sim_time_cmd = DeclareLaunchArgument(
     name='use_sim_time',
-    default_value='True',
+    default_value='False',
     description='Use simulation (Gazebo) clock if true')
     
   # Specify the actions

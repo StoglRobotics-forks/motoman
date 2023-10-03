@@ -1,5 +1,16 @@
 <?xml version="1.0" ?>
-<robot name="motoman_gp250" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="$(arg robot_name)" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:arg name="robot_name" default="motoman" />
+  <xacro:arg name="prefix" default="" />
+
+  <link name="world" />
+  <joint name="$(arg prefix)base_link-world" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="$(arg prefix)base_link"/>
+    <child link="world"/>
+  </joint>
+
   <xacro:include filename="$(find motoman_gp250_support)/urdf/gp250_macro.xacro" />
-  <xacro:motoman_gp250 prefix=""/>
+  <xacro:motoman_gp250 prefix="$(arg prefix)"/>
 </robot>
