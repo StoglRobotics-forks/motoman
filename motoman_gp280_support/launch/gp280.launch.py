@@ -21,6 +21,9 @@ def generate_launch_description():
   # Set the path to the URDF file
   default_urdf_model_path = os.path.join(pkg_share, 'urdf/gp280.xacro')
  
+  #Set the default path to RViz configuration file 
+  default_rviz_config_path = os.path.join(pkg_share, 'rviz/gp280.rviz')
+
   ########### YOU DO NOT NEED TO CHANGE ANYTHING BELOW THIS LINE ##############  
   # Launch configuration variables specific to simulation
   gui = LaunchConfiguration('gui')
@@ -87,6 +90,7 @@ def generate_launch_description():
     executable='rviz2',
     name='rviz2',
     output='screen',
+    arguments=["-d", default_rviz_config_path],
     )
    
   # Create the launch description and populate
