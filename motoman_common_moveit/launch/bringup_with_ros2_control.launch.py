@@ -205,7 +205,13 @@ def generate_launch_description():
             "stdout": "screen",
             "stderr": "screen",
         },
-        condition=IfCondition(activate_ros2_control),
+        remappings=[
+            ('/position_trajectory_controller/follow_joint_trajectory/_action/feedback', '/follow_joint_trajectory/_action/feedback'),
+            ('/position_trajectory_controller/follow_joint_trajectory/_action/status', '/follow_joint_trajectory/_action/status'),
+            ('/position_trajectory_controller/follow_joint_trajectory/_action/cancel_goal', '/follow_joint_trajectory/_action/cancel_goal'),
+            ('/position_trajectory_controller/follow_joint_trajectory/_action/get_result', '/follow_joint_trajectory/_action/get_result'),
+            ('/position_trajectory_controller/follow_joint_trajectory/_action/send_goal', '/follow_joint_trajectory/_action/send_goal'),
+        ],
     )
 
     # Spawn controllers
