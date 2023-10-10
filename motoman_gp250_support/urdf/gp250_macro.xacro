@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:macro name="motoman_gp250" params="prefix">
+  <xacro:macro name="motoman_gp250" params="prefix robot_tf_frame_prefix:=r1/">
     <xacro:include filename="$(find motoman_resources)/urdf/common_materials.xacro"/>
 
     <!-- link list -->
@@ -162,6 +162,14 @@
         <origin xyz="0 0 0.650" rpy="0 0 0"/>
         <parent link="${prefix}base_link"/>
         <child link="${prefix}base"/>
+    </joint>
+
+    <!-- Motoman world frame published from the robot is the same as the base -->
+    <link name="${robot_tf_frame_prefix}world" />
+    <joint name="${prefix}base_${robot_tf_frame_prefix}world" type="fixed">
+        <origin xyz="0 0 0.0" rpy="0 0 0"/>
+        <parent link="${prefix}base"/>
+        <child link="${robot_tf_frame_prefix}world"/>
     </joint>
 
   </xacro:macro>

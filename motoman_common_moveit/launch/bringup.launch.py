@@ -258,8 +258,6 @@ def generate_launch_description():
 
     robot_description_planning_config["robot_description_planning"].update(joint_limits_yaml)
 
-    # robot_description_planning_config["robot_description_planning"].update(joint_limits_yaml)
-
     # Trajectory Execution Functionality
     moveit_simple_controllers_yaml = load_yaml(
         "motoman_common_moveit", "config/motoman_controllers.yaml"
@@ -303,7 +301,7 @@ def generate_launch_description():
         ],
     )
 
-    # # Rviz2
+    # Rviz2
     rviz_config = PathJoinSubstitution(
         [FindPackageShare(moveit_config_package), "rviz", rviz_file])
     rviz_node = Node(
