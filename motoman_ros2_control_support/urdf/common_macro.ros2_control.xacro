@@ -4,11 +4,8 @@
   <xacro:macro name="motoman_common_ros2_control_macro" params="
                name
                prefix
-               use_mock_hardware:=^|false
-               sim_gazebo_classic:=^|false
-               sim_gazebo:=^|false
-               simulation_controllers
-               description_package"
+               use_mock_hardware:=^|true
+               "
                >
 
     <ros2_control name="${name}" type="system">
@@ -17,15 +14,9 @@
         <xacro:if value="${use_mock_hardware}">
           <plugin>mock_components/GenericSystem</plugin>
         </xacro:if>
-        <xacro:if value="${sim_gazebo_classic}">
-          <plugin>gazebo_ros2_control/GazeboSystem</plugin>
-        </xacro:if>
-        <xacro:if value="${sim_gazebo}">
-          <plugin>ign_ros2_control/IgnitionSystem</plugin>
-        </xacro:if>
       </hardware>
     
-    <joint name="${prefix}joint_1">
+    <joint name="${prefix}joint_s">
         <command_interface name="position">
           <param name="min">-1</param>
           <param name="max">1</param>
@@ -34,7 +25,7 @@
           <param name="initial_value">0</param>
         </state_interface>
       </joint>
-      <joint name="${prefix}joint_2">
+      <joint name="${prefix}joint_l">
         <command_interface name="position">
           <param name="min">-1</param>
           <param name="max">1</param>
@@ -43,7 +34,7 @@
           <param name="initial_value">0</param>
         </state_interface>
 	  </joint>
-      <joint name="${prefix}joint_3">
+      <joint name="${prefix}joint_u">
         <command_interface name="position">
           <param name="min">-1</param>
           <param name="max">0.61</param>
@@ -52,7 +43,7 @@
           <param name="initial_value">0</param>
         </state_interface>
 	  </joint>
-      <joint name="${prefix}joint_4">
+      <joint name="${prefix}joint_r">
         <command_interface name="position">
           <param name="min">-1</param>
           <param name="max">1</param>
@@ -61,7 +52,7 @@
           <param name="initial_value">0</param>
         </state_interface>
       </joint>
-      <joint name="${prefix}joint_5">
+      <joint name="${prefix}joint_b">
         <command_interface name="position">
           <param name="min">-1</param>
           <param name="max">1</param>
@@ -70,7 +61,7 @@
           <param name="initial_value">0</param>
         </state_interface>
       </joint>
-      <joint name="${prefix}joint_6">
+      <joint name="${prefix}joint_t">
         <command_interface name="position">
           <param name="min">-1</param>
           <param name="max">1</param>
@@ -81,29 +72,6 @@
       </joint>
 
     </ros2_control>
-
-    <xacro:if value="$(arg sim_gazebo_classic)">
-      <!-- Gazebo plugins -->
-      <gazebo reference="world">
-      </gazebo>
-      <gazebo>
-        <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-          <parameters>${simulation_controllers}</parameters>
-        </plugin>
-      </gazebo>
-    </xacro:if>
-
-    <xacro:if value="$(arg sim_gazebo)">
-      <!-- Gazebo plugins -->
-      <gazebo reference="world">
-      </gazebo>
-      <gazebo>
-        <plugin filename="libign_ros2_control-system.so" name="ign_ros2_control::IgnitionROS2ControlPlugin">
-          <parameters>${simulation_controllers}</parameters>
-          <controller_manager_node_name>${prefix}controller_manager</controller_manager_node_name>
-        </plugin>
-      </gazebo>
-    </xacro:if>
 
   </xacro:macro>
 </robot>
