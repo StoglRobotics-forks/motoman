@@ -38,6 +38,7 @@ planner_configs:
   RRTConnect:
     type: geometric::RRTConnect
     range: 0.0  # Max motion added to tree. ==> maxDistance_ default: 0.0, if 0.0, set on setup()
+    longest_valid_segment_fraction: 0.5
   RRTstar:
     type: geometric::RRTstar
     range: 0.0  # Max motion added to tree. ==> maxDistance_ default: 0.0, if 0.0, set on setup()
@@ -153,5 +154,6 @@ manipulator:
     - LazyPRMstar
     - SPARS
     - SPARStwo
-  projection_evaluator: joints(joint_1,joint_2)
+  projection_evaluator: joints(joint_s,joint_l)
   longest_valid_segment_fraction: 0.005
+  default_planner_config: RRTConnect

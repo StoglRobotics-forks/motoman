@@ -5,5 +5,5 @@ project(motoman_mh5_support)
 find_package(ament_cmake REQUIRED)
 ament_package()
 
-install(DIRECTORY meshes urdf
+install(DIRECTORY meshes urdf launch
   DESTINATION share/${PROJECT_NAME})

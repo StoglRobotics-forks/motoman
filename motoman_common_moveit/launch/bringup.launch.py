@@ -244,7 +244,7 @@ def generate_launch_description():
         "motoman_common_moveit", "config/kinematics.yaml"
     )
     move_group_config = {
-        "planning_pipelines": ["ompl", "pilz", "stomp"],
+        "planning_pipelines": ["ompl", "pilz"],
         "capabilities": [],
     }
     # Planning Functionality
@@ -341,7 +341,7 @@ def generate_launch_description():
             kinematics_yaml,
             move_group_config,
             ompl_planning_pipeline_config,
-            pilz_planning_pipeline_config,
+            # pilz_planning_pipeline_config,
             stomp_planning_pipeline_config,
             robot_description_planning_config,
             trajectory_execution,
@@ -376,7 +376,7 @@ def generate_launch_description():
             robot_state_publisher_node,
             ros2_control_node,
             moveit_node,
-            rviz_node,
+            # rviz_node,
         ]
         + load_and_activate_controllers
     )
