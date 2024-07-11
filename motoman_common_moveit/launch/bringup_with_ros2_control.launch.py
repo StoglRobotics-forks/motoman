@@ -68,6 +68,14 @@ def generate_launch_description():
     )
     declared_arguments.append(
         DeclareLaunchArgument(
+            "joints_with_suffix",
+            default_value="false",
+            description="Whether the joint names have a suffix, \
+                i.e. [joint_1_s, joint_2_l, joint_3_u, joint_4_r, joint_5_b, joint_6_t]",
+        )
+    )
+    declared_arguments.append(
+        DeclareLaunchArgument(
             "description_package",
             default_value = "motoman_gp250_support",
             description="Description package with robot URDF/xacro files.",
@@ -117,6 +125,15 @@ def generate_launch_description():
 
     declared_arguments.append(
         DeclareLaunchArgument(
+            "moveit_controllers_file",
+            default_value="moveit_controllers.yaml",
+            description="YAML file with the controllers configuration. \
+                The expected location of the file is '<moveit_config_package>/config/'.",
+        )
+    )
+
+    declared_arguments.append(
+        DeclareLaunchArgument(
             "semantic_description_file",
             default_value="common_motoman.srdf.xacro",
             description="Semantic robot description file (SRDF/XACRO) with of the robot or \
@@ -144,6 +161,7 @@ def generate_launch_description():
     # initialize arguments
     robot_name = LaunchConfiguration("robot_name")
     prefix = LaunchConfiguration("prefix")
+    joints_with_suffix = LaunchConfiguration("joints_with_suffix")
     description_package = LaunchConfiguration("description_package")
     description_macro_file = LaunchConfiguration("description_macro_file")
     configuration_package = LaunchConfiguration("configuration_package")
@@ -152,6 +170,7 @@ def generate_launch_description():
     use_mock_hardware = LaunchConfiguration("use_mock_hardware")
 
     moveit_config_package = LaunchConfiguration("moveit_config_package")
+    moveit_controllers_file = LaunchConfiguration("moveit_controllers_file")
     semantic_description_file = LaunchConfiguration("semantic_description_file")
     rviz_file = LaunchConfiguration("rviz_file")
 
@@ -170,6 +189,9 @@ def generate_launch_description():
             " ",
             "prefix:=",
             prefix,
+            " ",
+            "joints_with_suffix:=",
+            joints_with_suffix,
             " ",
             "description_package:=",
             description_package,
@@ -282,7 +304,7 @@ def generate_launch_description():
         "motoman_common_moveit", "config/pilz_planning.yaml"
     )
     pilz_planning_pipeline_config["pilz"].update(pilz_planning_yaml)
-    
+
     pilz_capabilities_yaml = load_yaml(
         "motoman_common_moveit", "config/pilz_capabilities.yaml"
     )
@@ -314,13 +336,29 @@ def generate_launch_description():
     # robot_description_planning_config["robot_description_planning"].update(joint_limits_yaml)
 
     # Trajectory Execution Functionality
-    moveit_simple_controllers_yaml = load_yaml(
-        "motoman_common_moveit", "config/motoman_controllers.yaml"
-    )
+    # moveit_simple_controllers_yaml = load_yaml(
+    #     "motoman_common_moveit", "config/motoman_controllers.yaml"
+    # )
+    joint_names = [f"joint_{i}" for i in range(1, 7)]
+    joint_suffixes = ["s", "l", "u", "r", "b", "t"]
+    if True:
+        joint_names = [joint_name + "_" + suffix for joint_name, suffix in zip(joint_names, joint_suffixes)]
+    moveit_simple_controllers_yaml = {
+        "controller_names": ["follow_joint_trajectory"],
+        "follow_joint_trajectory:": {
+            "action_ns": "",
+            "type": "FollowJointTrajectory",
+            "default": True,
+            "joints": joint_names,
+        }
+    }
     moveit_controllers = {
         "moveit_simple_controller_manager": moveit_simple_controllers_yaml,
         "moveit_controller_manager": "moveit_simple_controller_manager/MoveItSimpleControllerManager",
     }
+    # moveit_controllers = PathJoinSubstitution(
+    #     [FindPackageShare(moveit_config_package), "config", moveit_controllers_file]
+    # )
 
     trajectory_execution = {
         "moveit_manage_controllers": False,

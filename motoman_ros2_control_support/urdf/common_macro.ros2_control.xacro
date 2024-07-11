@@ -4,12 +4,29 @@
   <xacro:macro name="motoman_common_ros2_control_macro" params="
                name
                prefix
+               joints_with_suffix:=^|false
                use_mock_hardware:=^|false
                sim_gazebo_classic:=^|false
                sim_gazebo:=^|false
                simulation_controllers
                description_package"
                >
+
+    <xacro:property name="joint_1_suffix" value=""/>
+    <xacro:property name="joint_2_suffix" value=""/>
+    <xacro:property name="joint_3_suffix" value=""/>
+    <xacro:property name="joint_4_suffix" value=""/>
+    <xacro:property name="joint_5_suffix" value=""/>
+    <xacro:property name="joint_6_suffix" value=""/>
+
+    <xacro:if value="${joints_with_suffix}">
+      <xacro:property name="joint_1_suffix" value="_s"/>
+      <xacro:property name="joint_2_suffix" value="_l"/>
+      <xacro:property name="joint_3_suffix" value="_u"/>
+      <xacro:property name="joint_4_suffix" value="_r"/>
+      <xacro:property name="joint_5_suffix" value="_b"/>
+      <xacro:property name="joint_6_suffix" value="_t"/>
+    </xacro:if>
 
     <ros2_control name="${name}" type="system">
 
@@ -25,42 +42,42 @@
         </xacro:if>
       </hardware>
 
-    <joint name="${prefix}joint_1">
+    <joint name="${prefix}joint_1${joint_1_suffix}">
         <command_interface name="position">
         </command_interface>
         <state_interface name="position">
           <param name="initial_value">0</param>
         </state_interface>
       </joint>
-      <joint name="${prefix}joint_2">
+      <joint name="${prefix}joint_2${joint_2_suffix}">
         <command_interface name="position">
         </command_interface>
         <state_interface name="position">
           <param name="initial_value">0</param>
         </state_interface>
 	  </joint>
-      <joint name="${prefix}joint_3">
+      <joint name="${prefix}joint_3${joint_3_suffix}">
         <command_interface name="position">
         </command_interface>
         <state_interface name="position">
           <param name="initial_value">0</param>
         </state_interface>
 	  </joint>
-      <joint name="${prefix}joint_4">
+      <joint name="${prefix}joint_4${joint_4_suffix}">
         <command_interface name="position">
         </command_interface>
         <state_interface name="position">
           <param name="initial_value">0</param>
         </state_interface>
       </joint>
-      <joint name="${prefix}joint_5">
+      <joint name="${prefix}joint_5${joint_5_suffix}">
         <command_interface name="position">
         </command_interface>
         <state_interface name="position">
           <param name="initial_value">0</param>
         </state_interface>
       </joint>
-      <joint name="${prefix}joint_6">
+      <joint name="${prefix}joint_6${joint_6_suffix}">
         <command_interface name="position">
         </command_interface>
         <state_interface name="position">
