@@ -1,4 +1,7 @@
-request_adapters: >-
-  default_planner_request_adapters/FixWorkspaceBounds
-  default_planner_request_adapters/FixStartStateBounds
-  default_planner_request_adapters/FixStartStatePathConstraints
+/**:
+  ros__parameters:
+    pilz:
+      request_adapters: >-
+        default_planner_request_adapters/FixWorkspaceBounds
+        default_planner_request_adapters/FixStartStateBounds
+        default_planner_request_adapters/FixStartStatePathConstraints

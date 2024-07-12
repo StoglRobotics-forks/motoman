@@ -333,32 +333,10 @@ def generate_launch_description():
 
     robot_description_planning_config["robot_description_planning"].update(joint_limits_yaml)
 
-    # robot_description_planning_config["robot_description_planning"].update(joint_limits_yaml)
-
     # Trajectory Execution Functionality
-    # moveit_simple_controllers_yaml = load_yaml(
-    #     "motoman_common_moveit", "config/motoman_controllers.yaml"
-    # )
-    joint_names = [f"joint_{i}" for i in range(1, 7)]
-    joint_suffixes = ["s", "l", "u", "r", "b", "t"]
-    if True:
-        joint_names = [joint_name + "_" + suffix for joint_name, suffix in zip(joint_names, joint_suffixes)]
-    moveit_simple_controllers_yaml = {
-        "controller_names": ["follow_joint_trajectory"],
-        "follow_joint_trajectory:": {
-            "action_ns": "",
-            "type": "FollowJointTrajectory",
-            "default": True,
-            "joints": joint_names,
-        }
-    }
-    moveit_controllers = {
-        "moveit_simple_controller_manager": moveit_simple_controllers_yaml,
-        "moveit_controller_manager": "moveit_simple_controller_manager/MoveItSimpleControllerManager",
-    }
-    # moveit_controllers = PathJoinSubstitution(
-    #     [FindPackageShare(moveit_config_package), "config", moveit_controllers_file]
-    # )
+    moveit_controllers = PathJoinSubstitution(
+        [FindPackageShare(moveit_config_package), "config", moveit_controllers_file]
+    )
 
     trajectory_execution = {
         "moveit_manage_controllers": False,

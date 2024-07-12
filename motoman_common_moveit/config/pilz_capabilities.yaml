@@ -1,3 +1,5 @@
-capabilities: >-
-    pilz_industrial_motion_planner/MoveGroupSequenceAction
-    pilz_industrial_motion_planner/MoveGroupSequenceService
+/**:
+  ros__parameters:
+    capabilities: >-
+        pilz_industrial_motion_planner/MoveGroupSequenceAction
+        pilz_industrial_motion_planner/MoveGroupSequenceService
