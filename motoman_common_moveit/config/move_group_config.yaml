@@ -2,6 +2,7 @@
   ros__parameters:
     # planning_pipelines: ["ompl", "pilz", "stomp"]
     planning_pipelines: ["ompl", "pilz"]
+    default_planning_pipeline: ompl
     capabilities: []
 
     ompl:
@@ -21,7 +22,8 @@
       default_planner_config: PTP
 
     # Trajectory execution manager parameters
-    moveit_manage_controllers: False
+    allow_trajectory_execution: true
+    moveit_manage_controllers: false
     trajectory_execution:
       allowed_execution_duration_scaling: 100.0
       allowed_goal_duration_margin: 0.5
