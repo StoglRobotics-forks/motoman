@@ -53,9 +53,6 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
   <arg name="kinematics_file_path"
        default="$(find-pkg-share motoman_common_moveit)/config/kinematics.yaml"
        description="YAML file with the kinematics configuration."/>
-  <arg name="pilz_capabilities_file_path"
-       default="$(find-pkg-share motoman_common_moveit)/config/pilz_capabilities.yaml"
-       description="YAML file with the pilz capabilities configuration."/>
   <arg name="ompl_planning_file_path"
        default="$(find-pkg-share motoman_common_moveit)/config/ompl_planning.yaml"
        description="YAML file with the OMPL planning configuration."/>
@@ -126,7 +123,6 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
     <param name="robot_description" value="$(var robot_description_content)"/>
     <param name="robot_description_semantic" value="$(var robot_description_semantic_content)"/>
     <param from="$(var move_group_config_file_path)"/>
-    <param from="$(var pilz_capabilities_file_path)"/>
     <param from="$(var ompl_planning_file_path)"/>
     <param from="$(var pilz_planning_file_path)"/>
     <param from="$(var stomp_planning_file_path)"/>
@@ -142,6 +138,7 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
     <param name="robot_description_semantic" value="$(var robot_description_semantic_content)"/>
     <param from="$(var kinematics_file_path)"/>
     <param from="$(var ompl_planning_file_path)"/>
+    <param name="default_planning_pipeline" value="ompl"/>
   </node>
 
 </launch>
