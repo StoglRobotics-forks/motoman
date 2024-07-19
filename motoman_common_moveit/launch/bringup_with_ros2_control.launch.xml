@@ -38,6 +38,9 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
   <arg name="use_mock_hardware"
        default="true"
        description="Start robot with fake hardware mirroring command to its states."/>
+  <arg name="sim_gazebo"
+       default="true"
+       description="Simulate the robot in Gazebo"/>
   <arg name="controllers_file_path"
        default="$(find-pkg-share motoman_ros2_control_support)/config/motoman_6dof_controllers.yaml"
        description="YAML file with the controllers configuration."/>
@@ -83,14 +86,17 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
                 joints_with_suffix:=$(var joints_with_suffix) \
                 description_package:=$(var description_package) \
                 description_macro_file:=$(var description_macro_file) \
-                use_mock_hardware:=$(var use_mock_hardware)')"/>
+                use_mock_hardware:=$(var use_mock_hardware) \
+                sim_gazebo:=$(var sim_gazebo) \
+                simulation_controllers:=$(var controllers_file_path)')"/>
 
   <!-- Publish TF -->
   <node pkg="robot_state_publisher" exec="robot_state_publisher" name="robot_state_publisher_node" output="both">
     <param name="robot_description" value="$(var robot_description_content)"/>
+    <param name="use_sim_time" value="$(var sim_gazebo)"/>
   </node>
 
-  <!-- ros2_control node -->
+  <!-- ros2_control node 
   <node pkg="controller_manager" exec="ros2_control_node" output="screen">
     <param from="$(var controllers_file_path)"/>
     <param name="robot_description" value="$(var robot_description_content)"/>
@@ -104,12 +110,16 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
            to="/follow_joint_trajectory/_action/get_result"/>
     <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/send_goal"
            to="/follow_joint_trajectory/_action/send_goal"/>
-  </node>
+  </node>-->
 
   <!-- Spawn controllers -->
   <group if="$(var activate_ros2_control)">
-    <node pkg="controller_manager" exec="spawner" args="position_trajectory_controller" />
-    <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster" />
+    <node pkg="controller_manager" exec="spawner" args="position_trajectory_controller" >
+     <param name="use_sim_time" value="$(var sim_gazebo)"/>
+    </node>
+    <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster" >
+    <param name="use_sim_time" value="$(var sim_gazebo)"/>
+    </node>
   </group>
 
   <!-- Load MoveIt Configuration -->
@@ -130,6 +140,7 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
     <param from="$(var joint_limits_file_path)"/>
     <param from="$(var moveit_controllers_file_path)"/>
     <param from="$(var kinematics_file_path)"/>
+    <param name="use_sim_time" value="$(var sim_gazebo)"/>
   </node>
 
   <!-- RViz2 -->
@@ -139,6 +150,7 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
     <param from="$(var kinematics_file_path)"/>
     <param from="$(var ompl_planning_file_path)"/>
     <param name="default_planning_pipeline" value="ompl"/>
+    <param name="use_sim_time" value="$(var sim_gazebo)"/>
   </node>
 
 </launch>

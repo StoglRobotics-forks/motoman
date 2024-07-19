@@ -31,15 +31,17 @@
     <ros2_control name="${name}" type="system">
 
       <hardware>
-        <xacro:if value="${use_mock_hardware}">
-          <plugin>mock_components/GenericSystem</plugin>
-        </xacro:if>
-        <xacro:if value="${sim_gazebo_classic}">
-          <plugin>gazebo_ros2_control/GazeboSystem</plugin>
-        </xacro:if>
         <xacro:if value="${sim_gazebo}">
-          <plugin>ign_ros2_control/IgnitionSystem</plugin>
+          <plugin>gz_ros2_control/GazeboSimSystem</plugin>
         </xacro:if>
+        <xacro:unless value="${sim_gazebo}">
+          <xacro:if value="${use_mock_hardware}">
+            <plugin>mock_components/GenericSystem</plugin>
+          </xacro:if>
+          <xacro:if value="${sim_gazebo_classic}">
+            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+          </xacro:if>
+        </xacro:unless>
       </hardware>
 
     <joint name="${prefix}joint_1${joint_1_suffix}">
@@ -103,9 +105,16 @@
       <gazebo reference="world">
       </gazebo>
       <gazebo>
-        <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+        <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
           <parameters>${simulation_controllers}</parameters>
           <controller_manager_node_name>${prefix}controller_manager</controller_manager_node_name>
+            <ros>
+              <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/feedback:=/follow_joint_trajectory/_action/feedback</remapping>
+              <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/status:=/follow_joint_trajectory/_action/status</remapping>
+              <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/cancel_goal:=/follow_joint_trajectory/_action/cancel_goal</remapping>
+              <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/get_result:=/follow_joint_trajectory/_action/get_result</remapping>
+              <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/send_goal:=/follow_joint_trajectory/_action/send_goal</remapping>
+          </ros>
         </plugin>
       </gazebo>
     </xacro:if>
