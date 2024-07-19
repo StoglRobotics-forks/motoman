@@ -1,0 +1,7 @@
+prepend-non-duplicate;IGN_GAZEBO_MODEL_PATH;share;@CMAKE_INSTALL_PREFIX@/share
+prepend-non-duplicate;IGN_GAZEBO_RESOURCE_PATH;share;@CMAKE_INSTALL_PREFIX@/share
+prepend-non-duplicate;IGN_GAZEBO_PLUGIN_PATH;share;@CMAKE_INSTALL_PREFIX@/share
+
+prepend-non-duplicate;GZ_SIM_MODEL_PATH;share;@CMAKE_INSTALL_PREFIX@/share
+prepend-non-duplicate;GZ_SIM_RESOURCE_PATH;share;@CMAKE_INSTALL_PREFIX@/share
+prepend-non-duplicate;GZ_SIM_PLUGIN_PATH;share;@CMAKE_INSTALL_PREFIX@/share
