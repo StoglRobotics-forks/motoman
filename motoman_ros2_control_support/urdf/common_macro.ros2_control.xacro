@@ -86,7 +86,27 @@
           <param name="initial_value">0</param>
         </state_interface>
       </joint>
-
+      <sensor name="force_torque_sensor">            <!-- Remove/change sensors as needed -->
+        <state_interface name="force.x"/>
+        <state_interface name="force.y"/>
+        <state_interface name="force.z"/>
+        <state_interface name="torque.x"/>
+        <state_interface name="torque.y"/>
+        <state_interface name="torque.z"/>
+        <param name="frame_id">tool0</param>    <!-- Change sensors as needed -->
+        <param name="min_fx">-100</param>
+        <param name="max_fx">100</param>
+        <param name="min_fy">-100</param>
+        <param name="max_fy">100</param>
+        <param name="min_fz">-200</param>
+        <param name="max_fz">200</param>
+        <param name="min_tx">-10</param>
+        <param name="max_tx">10</param>
+        <param name="min_ty">-10</param>
+        <param name="max_ty">10</param>
+        <param name="min_tz">-15</param>
+        <param name="max_tz">15</param>
+      </sensor>
     </ros2_control>
 
     <xacro:if value="$(arg sim_gazebo_classic)">
