@@ -114,7 +114,10 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
 
   <!-- Spawn controllers -->
   <group if="$(var activate_ros2_control)">
-    <node pkg="controller_manager" exec="spawner" args="position_trajectory_controller" >
+    <node pkg="controller_manager" exec="spawner" args="position_trajectory_controller --inactive" >
+     <param name="use_sim_time" value="$(var sim_gazebo)"/>
+    </node>
+    <node pkg="controller_manager" exec="spawner" args="admittance_controller --inactive" >
      <param name="use_sim_time" value="$(var sim_gazebo)"/>
     </node>
     <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster" >
