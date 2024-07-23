@@ -45,46 +45,52 @@
       </hardware>
 
     <joint name="${prefix}joint_1${joint_1_suffix}">
-        <command_interface name="position">
-        </command_interface>
+        <command_interface name="position"/>
         <state_interface name="position">
           <param name="initial_value">0</param>
         </state_interface>
+        <command_interface name="velocity"/>
+        <state_interface name="velocity"/>
       </joint>
       <joint name="${prefix}joint_2${joint_2_suffix}">
-        <command_interface name="position">
-        </command_interface>
+        <command_interface name="position"/>
         <state_interface name="position">
           <param name="initial_value">0</param>
         </state_interface>
+        <command_interface name="velocity"/>
+        <state_interface name="velocity"/>
 	  </joint>
       <joint name="${prefix}joint_3${joint_3_suffix}">
-        <command_interface name="position">
-        </command_interface>
+        <command_interface name="position"/>
         <state_interface name="position">
           <param name="initial_value">0</param>
         </state_interface>
+        <command_interface name="velocity"/>
+        <state_interface name="velocity"/>
 	  </joint>
       <joint name="${prefix}joint_4${joint_4_suffix}">
-        <command_interface name="position">
-        </command_interface>
+        <command_interface name="position"/>
         <state_interface name="position">
           <param name="initial_value">0</param>
         </state_interface>
+        <command_interface name="velocity"/>
+        <state_interface name="velocity"/>
       </joint>
       <joint name="${prefix}joint_5${joint_5_suffix}">
-        <command_interface name="position">
-        </command_interface>
+        <command_interface name="position"/>
         <state_interface name="position">
           <param name="initial_value">0</param>
         </state_interface>
+        <command_interface name="velocity"/>
+        <state_interface name="velocity"/>
       </joint>
       <joint name="${prefix}joint_6${joint_6_suffix}">
-        <command_interface name="position">
-        </command_interface>
+        <command_interface name="position"/>
         <state_interface name="position">
           <param name="initial_value">0</param>
         </state_interface>
+        <command_interface name="velocity"/>
+        <state_interface name="velocity"/>
       </joint>
       <sensor name="force_torque_sensor">            <!-- Remove/change sensors as needed -->
         <state_interface name="force.x"/>
