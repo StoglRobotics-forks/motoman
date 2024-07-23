@@ -118,7 +118,10 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
      <param name="use_sim_time" value="$(var sim_gazebo)"/>
     </node>
     <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster" >
-    <param name="use_sim_time" value="$(var sim_gazebo)"/>
+     <param name="use_sim_time" value="$(var sim_gazebo)"/>
+    </node>
+    <node pkg="controller_manager" exec="spawner" args="force_torque_sensor_broadcaster" >
+     <param name="use_sim_time" value="$(var sim_gazebo)"/>
     </node>
   </group>
 
