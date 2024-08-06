@@ -3,6 +3,7 @@
 
   <xacro:arg name="robot_name" default="yaskawa" />
   <xacro:arg name="prefix" default="" />
+  <xacro:arg name="joints_with_suffix" default="false" />
   <xacro:arg name="description_package" default="" />
   <xacro:arg name="description_macro_file" default="" />
 
@@ -23,6 +24,7 @@
   <xacro:motoman_common_ros2_control_macro
     name="$(arg robot_name)"
     prefix="$(arg prefix)"
+    joints_with_suffix="$(arg joints_with_suffix)"
     use_mock_hardware="$(arg use_mock_hardware)"
     sim_gazebo_classic="$(arg sim_gazebo_classic)"
     sim_gazebo="$(arg sim_gazebo)"
