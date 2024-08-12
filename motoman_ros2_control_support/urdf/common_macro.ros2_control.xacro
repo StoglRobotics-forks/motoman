@@ -113,6 +113,11 @@
         <param name="min_tz">-15</param>
         <param name="max_tz">15</param>
       </sensor>
+      <gpio name="proximity_sensor">
+        <state_interface name="state"> <!-- this state interface name is mandatory for proximity_sensor_controller -->
+          <param name="initial_value">0.0</param>
+        </state_interface>
+      </gpio>
     </ros2_control>
 
     <xacro:if value="$(arg sim_gazebo_classic)">
