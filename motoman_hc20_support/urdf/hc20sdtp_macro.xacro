@@ -1,58 +1,64 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:macro name="motoman_hc20sdtp" params="prefix">
+  <xacro:macro name="motoman_hc20sdtp" params="prefix robot_tf_frame_prefix:=r1/">
     <xacro:include filename="$(find motoman_resources)/urdf/common_materials.xacro"/>
 
     <!-- link list -->
     <link name="${prefix}base_link">
       <visual>
         <geometry>
-          <mesh filename="package://motoman_hc10_support/meshes/hc10/visual/base_link.dae"/>
+          <!-- <mesh filename="package://motoman_hc10_support/meshes/hc10/visual/base_link.dae"/> -->
+          <mesh filename="package://motoman_hc20_support/meshes/hc20/visual/base_link.stl" scale="0.923 0.923 0.923"/>
         </geometry>
         <xacro:material_yaskawa_blue/>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://motoman_hc10_support/meshes/hc10/collision/base_link.stl"/>
+          <!-- <mesh filename="package://motoman_hc10_support/meshes/hc10/collision/base_link.stl"/> -->
+          <mesh filename="package://motoman_hc20_support/meshes/hc20/collision/base_link.stl" scale="0.923 0.923 0.923"/>
         </geometry>
       </collision>
     </link>
     <link name="${prefix}link_1_s">
       <visual>
         <geometry>
-          <mesh filename="package://motoman_hc10_support/meshes/hc10/visual/link_1_s.dae"/>
+          <!-- <mesh filename="package://motoman_hc10_support/meshes/hc10/visual/link_1_s.dae"/> -->
+          <mesh filename="package://motoman_hc20_support/meshes/hc20/visual/link_1_s.stl" scale="0.9 0.9 0.9"/>
         </geometry>
         <xacro:material_yaskawa_blue/>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://motoman_hc10_support/meshes/hc10/collision/link_1_s.stl"/>
+          <!-- <mesh filename="package://motoman_hc10_support/meshes/hc10/collision/link_1_s.stl"/> -->
+          <mesh filename="package://motoman_hc20_support/meshes/hc20/collision/link_1_s.stl" scale="0.9 0.9 0.9"/>
         </geometry>
       </collision>
     </link>
     <link name="${prefix}link_2_l">
       <visual>
         <geometry>
-          <mesh filename="package://motoman_hc10_support/meshes/hc10/visual/link_2_l.dae"/>
+          <mesh filename="package://motoman_hc10_support/meshes/hc10/visual/link_2_l.dae" scale="1.0357 1.0357 1.0357"/>
         </geometry>
         <xacro:material_yaskawa_blue/>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://motoman_hc10_support/meshes/hc10/collision/link_2_l.stl"/>
+          <mesh filename="package://motoman_hc10_support/meshes/hc10/collision/link_2_l.stl" scale="1.0357 1.0357 1.0357"/>
         </geometry>
       </collision>
     </link>
     <link name="${prefix}link_3_u">
       <visual>
         <geometry>
-          <mesh filename="package://motoman_hc10_support/meshes/hc10/visual/link_3_u.dae"/>
+          <mesh filename="package://motoman_hc10_support/meshes/hc10/visual/link_3_u.dae" scale="1.2 1.2 1.2"/>
+          <!-- <mesh filename="package://motoman_hc20_support/meshes/hc20/visual/link_3_u.stl"/> -->
         </geometry>
         <xacro:material_yaskawa_blue/>
       </visual>
       <collision>
         <geometry>
-          <mesh filename="package://motoman_hc10_support/meshes/hc10/collision/link_3_u.stl"/>
+          <mesh filename="package://motoman_hc10_support/meshes/hc10/collision/link_3_u.stl" scale="1.2 1.2 1.2"/>
+          <!-- <mesh filename="package://motoman_hc20_support/meshes/hc20/collision/link_3_u.stl"/> -->
         </geometry>
       </collision>
     </link>
@@ -116,7 +122,7 @@
     <joint name="${prefix}joint_3_u" type="revolute">
       <parent link="${prefix}link_2_l"/>
       <child link="${prefix}link_3_u"/>
-      <origin xyz="0 0 0.725" rpy="0 0 0" />
+      <origin xyz="0 0 0.725" rpy="0 -1.57 0" />
       <axis xyz="0 -1 0" />
       <limit lower="${radians(-290)}" upper="${radians(290)}" effort="141.12" velocity="${radians(135)}"/>
     </joint>
@@ -137,7 +143,7 @@
     <joint name="${prefix}joint_6_t" type="revolute">
       <parent link="${prefix}link_5_b"/>
       <child link="${prefix}link_6_t"/>
-      <origin xyz="0 0 0" rpy="0 0 0" />
+      <origin xyz="0 0 0" rpy="0 0 1.57" />
       <axis xyz="0 0 1" />
       <limit lower="${radians(-210)}" upper="${radians(210)}" effort="29.4" velocity="${radians(180)}"/>
     </joint>
@@ -148,6 +154,14 @@
     </joint>
     <!-- end of joint list -->
 
+
+    <link name="${prefix}flange" />
+    <joint name="${prefix}joint_6_t-flange" type="fixed">
+        <origin xyz="0 0 0" rpy="0 ${radians(90)} 0" />
+        <parent link="${prefix}link_6_t" />
+        <child link="${prefix}flange" />
+    </joint>
+
     <!-- ROS base_link to Robot Manufacturer World Coordinates transform -->
     <link name="${prefix}base" />
     <joint name="${prefix}base_link-base" type="fixed">
@@ -155,5 +169,14 @@
       <parent link="${prefix}base_link"/>
       <child link="${prefix}base"/>
     </joint>
+
+    <!-- Motoman world frame published from the robot is the same as the base -->
+    <link name="${robot_tf_frame_prefix}world" />
+    <joint name="${prefix}base_${robot_tf_frame_prefix}world" type="fixed">
+        <origin xyz="0 0 0.0" rpy="0 0 0"/>
+        <parent link="${prefix}base"/>
+        <child link="${robot_tf_frame_prefix}world"/>
+    </joint>
+
   </xacro:macro>
 </robot>
