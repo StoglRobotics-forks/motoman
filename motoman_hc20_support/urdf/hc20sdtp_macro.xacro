@@ -97,14 +97,14 @@
     <link name="${prefix}link_6_t">
       <xacro:default_inertial/>
       <visual>
-        <origin xyz="0 0 0" rpy="0 ${radians(90)} 0"/>
+        <origin xyz="0 0 0" rpy="0 ${radians(90)} ${radians(-90)}"/>
         <geometry>
           <mesh filename="package://motoman_hc20_support/meshes/hc20sdtp/visual/link_6_t.dae"/>
         </geometry>
         <xacro:material_yaskawa_white/>
       </visual>
       <collision>
-        <origin xyz="0 0 0" rpy="0 ${radians(90)} 0"/>
+        <origin xyz="0 0 0" rpy="0 ${radians(90)} ${radians(-90)}"/>
         <geometry>
           <mesh filename="package://motoman_hc20_support/meshes/hc20sdtp/collision/link_6_t.stl"/>
        </geometry>
