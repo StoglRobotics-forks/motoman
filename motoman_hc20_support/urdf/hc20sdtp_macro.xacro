@@ -5,11 +5,12 @@
 
     <!-- link list -->
     <link name="${prefix}base_link">
+      <xacro:default_inertial/>
       <visual>
         <geometry>
           <mesh filename="package://motoman_hc20_support/meshes/hc20sdtp/visual/base_link.dae"/>
         </geometry>
-        <xacro:material_yaskawa_blue/>
+        <xacro:material_yaskawa_white/>
       </visual>
       <collision>
         <geometry>
@@ -18,11 +19,12 @@
       </collision>
     </link>
     <link name="${prefix}link_1_s">
+      <xacro:default_inertial/>
       <visual>
         <geometry>
           <mesh filename="package://motoman_hc20_support/meshes/hc20sdtp/visual/link_1_s.dae"/>
         </geometry>
-        <xacro:material_yaskawa_blue/>
+        <xacro:material_yaskawa_white/>
       </visual>
       <collision>
         <geometry>
@@ -31,11 +33,12 @@
       </collision>
     </link>
     <link name="${prefix}link_2_l">
+      <xacro:default_inertial/>
       <visual>
         <geometry>
           <mesh filename="package://motoman_hc20_support/meshes/hc20sdtp/visual/link_2_l.dae"/>
         </geometry>
-        <xacro:material_yaskawa_blue/>
+        <xacro:material_yaskawa_white/>
       </visual>
       <collision>
         <geometry>
@@ -44,12 +47,13 @@
       </collision>
     </link>
     <link name="${prefix}link_3_u">
+      <xacro:default_inertial/>
       <visual>
         <origin xyz="0 0 0" rpy="0 ${radians(90)} 0"/>
         <geometry>
           <mesh filename="package://motoman_hc20_support/meshes/hc20sdtp/visual/link_3_u.dae"/>
         </geometry>
-        <xacro:material_yaskawa_blue/>
+        <xacro:material_yaskawa_white/>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 ${radians(90)} 0"/>
@@ -59,12 +63,13 @@
       </collision>
     </link>
     <link name="${prefix}link_4_r">
+      <xacro:default_inertial/>
       <visual>
         <origin xyz="0 0 0" rpy="0 ${radians(90)} 0"/>
         <geometry>
           <mesh filename="package://motoman_hc20_support/meshes/hc20sdtp/visual/link_4_r.dae"/>
         </geometry>
-        <xacro:material_yaskawa_blue/>
+        <xacro:material_yaskawa_white/>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 ${radians(90)} 0"/>
@@ -74,12 +79,13 @@
       </collision>
     </link>
     <link name="${prefix}link_5_b">
+      <xacro:default_inertial/>
       <visual>
         <origin xyz="0 0 0" rpy="0 ${radians(90)} 0"/>
         <geometry>
           <mesh filename="package://motoman_hc20_support/meshes/hc20sdtp/visual/link_5_b.dae"/>
         </geometry>
-        <xacro:material_yaskawa_blue/>
+        <xacro:material_yaskawa_white/>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 ${radians(90)} 0"/>
@@ -89,12 +95,13 @@
       </collision>
     </link>
     <link name="${prefix}link_6_t">
+      <xacro:default_inertial/>
       <visual>
         <origin xyz="0 0 0" rpy="0 ${radians(90)} 0"/>
         <geometry>
           <mesh filename="package://motoman_hc20_support/meshes/hc20sdtp/visual/link_6_t.dae"/>
         </geometry>
-        <xacro:material_yaskawa_blue/>
+        <xacro:material_yaskawa_white/>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 ${radians(90)} 0"/>
@@ -103,7 +110,9 @@
        </geometry>
       </collision>
     </link>
-    <link name="${prefix}tool0"/>
+    <link name="${prefix}tool0">
+      <xacro:default_inertial/>
+    </link>
     <!-- end of link list -->
 
     <!-- joint list -->
@@ -157,7 +166,9 @@
     <!-- end of joint list -->
 
     <!-- ROS base_link to Robot Manufacturer World Coordinates transform -->
-    <link name="${prefix}base" />
+    <link name="${prefix}base">
+      <xacro:default_inertial/>
+    </link>
     <joint name="${prefix}base_link-base" type="fixed">
       <origin xyz="0 0 0.360" rpy="0 0 0"/>
       <parent link="${prefix}base_link"/>
@@ -165,7 +176,9 @@
     </joint>
 
     <!-- Motoman world frame published from the robot is the same as the base -->
-    <link name="${robot_tf_frame_prefix}world" />
+    <link name="${robot_tf_frame_prefix}world">
+      <xacro:default_inertial/>
+    </link>
     <joint name="${prefix}base_${robot_tf_frame_prefix}world" type="fixed">
         <origin xyz="0 0 0.0" rpy="0 0 0"/>
         <parent link="${prefix}base"/>
