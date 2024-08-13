@@ -124,7 +124,7 @@
     <joint name="${prefix}joint_3_u" type="revolute">
       <parent link="${prefix}link_2_l"/>
       <child link="${prefix}link_3_u"/>
-      <origin xyz="0 0 0.725" rpy="0 -1.57 0" />
+      <origin xyz="0 0 0.725" rpy="0 ${radians(-90)} 0" />
       <axis xyz="0 -1 0" />
       <limit lower="${radians(-290)}" upper="${radians(290)}" effort="141.12" velocity="${radians(135)}"/>
     </joint>
