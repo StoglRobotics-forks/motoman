@@ -113,6 +113,16 @@
         <param name="min_tz">-15</param>
         <param name="max_tz">15</param>
       </sensor>
+      <gpio name="truck_sensor">
+        <param name="io_type">group</param>
+        <param name="address">1</param>
+        <state_interface name="hall">
+          <param name="bit_index">7</param>
+        </state_interface>
+        <state_interface name="closed">
+          <param name="bit_index">6</param>
+        </state_interface>
+      </gpio>
     </ros2_control>
 
     <xacro:if value="$(arg sim_gazebo_classic)">
