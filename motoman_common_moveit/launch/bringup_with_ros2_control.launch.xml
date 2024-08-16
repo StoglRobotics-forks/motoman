@@ -39,7 +39,7 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
        default="true"
        description="Start robot with fake hardware mirroring command to its states."/>
   <arg name="sim_gazebo"
-       default="true"
+       default="false"
        description="Simulate the robot in Gazebo"/>
   <arg name="controllers_file_path"
        default="$(find-pkg-share motoman_ros2_control_support)/config/motoman_6dof_controllers.yaml"
