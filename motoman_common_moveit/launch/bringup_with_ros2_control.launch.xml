@@ -101,7 +101,7 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
      <node pkg="controller_manager" exec="ros2_control_node" output="screen" unless="$(var sim_gazebo)">
           <param from="$(var controllers_file_path)"/>
           <param name="robot_description" value="$(var robot_description_content)"/>
-          <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/feedback"
+          <!-- <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/feedback"
                     to="/follow_joint_trajectory/_action/feedback"/>
           <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/status"
                     to="/follow_joint_trajectory/_action/status"/>
@@ -110,7 +110,7 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
           <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/get_result"
                     to="/follow_joint_trajectory/_action/get_result"/>
           <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/send_goal"
-                    to="/follow_joint_trajectory/_action/send_goal"/>
+                    to="/follow_joint_trajectory/_action/send_goal"/> -->
      </node>
 
      <!-- Spawn controllers -->
@@ -123,9 +123,15 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
      <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster" >
           <param name="use_sim_time" value="$(var sim_gazebo)"/>
      </node>
-     <node pkg="controller_manager" exec="spawner" args="force_torque_sensor_broadcaster" >
+     <node pkg="controller_manager" exec="spawner" args="force_torque_sensor_broadcaster --inactive" >
           <param name="use_sim_time" value="$(var sim_gazebo)"/>
      </node>
+     <!-- <node pkg="controller_manager" exec="spawner" args="forward_position_command_controller" >
+          <param name="use_sim_time" value="$(var sim_gazebo)"/>
+     </node>
+     <node pkg="controller_manager" exec="spawner" args="forward_velocity_command_controller" >
+          <param name="use_sim_time" value="$(var sim_gazebo)"/>
+     </node> -->
   </group>
 
   <!-- Load MoveIt Configuration -->

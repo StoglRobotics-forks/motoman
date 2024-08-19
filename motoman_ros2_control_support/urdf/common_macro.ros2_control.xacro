@@ -29,6 +29,7 @@
 
 
       <ros2_control name="${name}" type="system" is_async="${not (use_mock_hardware or sim_gazebo)}" >
+      <!-- <ros2_control name="${name}" type="system" is_async="false" > -->
         <hardware>
           <xacro:if value="${sim_gazebo}">
             <plugin>gz_ros2_control/GazeboSimSystem</plugin>
@@ -128,11 +129,11 @@
           <parameters>${simulation_controllers}</parameters>
           <controller_manager_node_name>${prefix}controller_manager</controller_manager_node_name>
             <ros>
-              <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/feedback:=/follow_joint_trajectory/_action/feedback</remapping>
+              <!-- <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/feedback:=/follow_joint_trajectory/_action/feedback</remapping>
               <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/status:=/follow_joint_trajectory/_action/status</remapping>
               <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/cancel_goal:=/follow_joint_trajectory/_action/cancel_goal</remapping>
               <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/get_result:=/follow_joint_trajectory/_action/get_result</remapping>
-              <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/send_goal:=/follow_joint_trajectory/_action/send_goal</remapping>
+              <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/send_goal:=/follow_joint_trajectory/_action/send_goal</remapping> -->
           </ros>
         </plugin>
       </gazebo>
