@@ -27,6 +27,29 @@
       <xacro:property name="joint_6_suffix" value="_t"/>
     </xacro:if>
 
+    <xacro:property name="sensor_block">
+      <sensor name="force_torque_sensor">
+        <state_interface name="force.x"/>
+        <state_interface name="force.y"/>
+        <state_interface name="force.z"/>
+        <state_interface name="torque.x"/>
+        <state_interface name="torque.y"/>
+        <state_interface name="torque.z"/>
+        <param name="frame_id">tool0</param>
+        <param name="min_fx">-100</param>
+        <param name="max_fx">100</param>
+        <param name="min_fy">-100</param>
+        <param name="max_fy">100</param>
+        <param name="min_fz">-200</param>
+        <param name="max_fz">200</param>
+        <param name="min_tx">-10</param>
+        <param name="max_tx">10</param>
+        <param name="min_ty">-10</param>
+        <param name="max_ty">10</param>
+        <param name="min_tz">-15</param>
+        <param name="max_tz">15</param>
+      </sensor>
+    </xacro:property>
 
       <ros2_control name="${name}" type="system" is_async="${not (use_mock_hardware or sim_gazebo)}" >
       <!-- <ros2_control name="${name}" type="system" is_async="false" > -->
@@ -95,30 +118,26 @@
         </joint>
 
         <xacro:if value="${use_mock_hardware or sim_gazebo}">
-          <sensor name="force_torque_sensor">
-            <state_interface name="force.x"/>
-            <state_interface name="force.y"/>
-            <state_interface name="force.z"/>
-            <state_interface name="torque.x"/>
-            <state_interface name="torque.y"/>
-            <state_interface name="torque.z"/>
-            <param name="frame_id">tool0</param>
-            <param name="min_fx">-100</param>
-            <param name="max_fx">100</param>
-            <param name="min_fy">-100</param>
-            <param name="max_fy">100</param>
-            <param name="min_fz">-200</param>
-            <param name="max_fz">200</param>
-            <param name="min_tx">-10</param>
-            <param name="max_tx">10</param>
-            <param name="min_ty">-10</param>
-            <param name="max_ty">10</param>
-            <param name="min_tz">-15</param>
-            <param name="max_tz">15</param>
-          </sensor>
+          <xacro:insert_block name="sensor_block"/>
         </xacro:if>
       </ros2_control>
     <!-- </xacro:if> -->
+
+    <xacro:if value="${not (use_mock_hardware or sim_gazebo)}" >
+      <ros2_control name="fts_hw" type="sensor" is_async="true" >
+        <hardware>
+          <plugin>iaa_hardware_interfaces/FTSHardwareInterface</plugin>
+          <param name="fts_topic">/tcp_force_torque</param>
+          <param name="force_x_name">force.x</param>
+          <param name="force_y_name">force.y</param>
+          <param name="force_z_name">force.z</param>
+          <param name="torque_x_name">torque.x</param>
+          <param name="torque_y_name">torque.y</param>
+          <param name="torque_z_name">torque.z</param>
+        </hardware>
+        <xacro:insert_block name="sensor_block"/>
+      </ros2_control>
+    </xacro:if>
 
     <xacro:if value="$(arg sim_gazebo)">
       <!-- Gazebo plugins -->
