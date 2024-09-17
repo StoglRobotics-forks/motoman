@@ -6,7 +6,6 @@
                prefix
                joints_with_suffix:=^|false
                use_mock_hardware:=^|false
-               sim_gazebo_classic:=^|false
                sim_gazebo:=^|false
                simulation_controllers
                description_package"
@@ -28,78 +27,15 @@
       <xacro:property name="joint_6_suffix" value="_t"/>
     </xacro:if>
 
-    <ros2_control name="${name}" type="system">
-
-      <hardware>
-        <xacro:if value="${sim_gazebo}">
-          <plugin>gz_ros2_control/GazeboSimSystem</plugin>
-        </xacro:if>
-        <xacro:unless value="${sim_gazebo}">
-          <xacro:if value="${use_mock_hardware}">
-            <plugin>mock_components/GenericSystem</plugin>
-          </xacro:if>
-          <xacro:if value="${sim_gazebo_classic}">
-            <plugin>gazebo_ros2_control/GazeboSystem</plugin>
-          </xacro:if>
-        </xacro:unless>
-      </hardware>
-
-    <joint name="${prefix}joint_1${joint_1_suffix}">
-        <command_interface name="position"/>
-        <state_interface name="position">
-          <param name="initial_value">0</param>
-        </state_interface>
-        <command_interface name="velocity"/>
-        <state_interface name="velocity"/>
-      </joint>
-      <joint name="${prefix}joint_2${joint_2_suffix}">
-        <command_interface name="position"/>
-        <state_interface name="position">
-          <param name="initial_value">0</param>
-        </state_interface>
-        <command_interface name="velocity"/>
-        <state_interface name="velocity"/>
-	  </joint>
-      <joint name="${prefix}joint_3${joint_3_suffix}">
-        <command_interface name="position"/>
-        <state_interface name="position">
-          <param name="initial_value">0</param>
-        </state_interface>
-        <command_interface name="velocity"/>
-        <state_interface name="velocity"/>
-	  </joint>
-      <joint name="${prefix}joint_4${joint_4_suffix}">
-        <command_interface name="position"/>
-        <state_interface name="position">
-          <param name="initial_value">0</param>
-        </state_interface>
-        <command_interface name="velocity"/>
-        <state_interface name="velocity"/>
-      </joint>
-      <joint name="${prefix}joint_5${joint_5_suffix}">
-        <command_interface name="position"/>
-        <state_interface name="position">
-          <param name="initial_value">0</param>
-        </state_interface>
-        <command_interface name="velocity"/>
-        <state_interface name="velocity"/>
-      </joint>
-      <joint name="${prefix}joint_6${joint_6_suffix}">
-        <command_interface name="position"/>
-        <state_interface name="position">
-          <param name="initial_value">0</param>
-        </state_interface>
-        <command_interface name="velocity"/>
-        <state_interface name="velocity"/>
-      </joint>
-      <sensor name="force_torque_sensor">            <!-- Remove/change sensors as needed -->
+    <xacro:property name="sensor_block">
+      <sensor name="force_torque_sensor">
         <state_interface name="force.x"/>
         <state_interface name="force.y"/>
         <state_interface name="force.z"/>
         <state_interface name="torque.x"/>
         <state_interface name="torque.y"/>
         <state_interface name="torque.z"/>
-        <param name="frame_id">tool0</param>    <!-- Change sensors as needed -->
+        <param name="frame_id">tool0</param>
         <param name="min_fx">-100</param>
         <param name="max_fx">100</param>
         <param name="min_fy">-100</param>
@@ -113,17 +49,94 @@
         <param name="min_tz">-15</param>
         <param name="max_tz">15</param>
       </sensor>
-    </ros2_control>
+    </xacro:property>
 
-    <xacro:if value="$(arg sim_gazebo_classic)">
-      <!-- Gazebo plugins -->
-      <gazebo reference="world">
-      </gazebo>
-      <gazebo>
-        <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-          <parameters>${simulation_controllers}</parameters>
-        </plugin>
-      </gazebo>
+      <ros2_control name="${name}" type="system" is_async="${not (use_mock_hardware or sim_gazebo)}" >
+      <!-- <ros2_control name="${name}" type="system" is_async="false" > -->
+        <hardware>
+          <xacro:if value="${sim_gazebo}">
+            <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+          </xacro:if>
+          <xacro:if value="${use_mock_hardware}">
+            <plugin>mock_components/GenericSystem</plugin>
+          </xacro:if>
+          <xacro:unless value="${use_mock_hardware or sim_gazebo}">
+            <!-- <plugin>motoman_hardware_inteface/MotoROS2HardwareInterface</plugin> -->
+            <plugin>iaa_hardware_interfaces/MotoROS2HardwareInterface</plugin>
+            <param name="queue_traj_point_srv_name">/queue_traj_point</param>
+            <param name="joint_states_topic_name">/hc20sdtp_joint_states</param>
+          </xacro:unless>
+        </hardware>
+
+        <joint name="${prefix}joint_1${joint_1_suffix}">
+          <command_interface name="position"/>
+          <state_interface name="position">
+            <param name="initial_value">0</param>
+          </state_interface>
+          <command_interface name="velocity"/>
+          <state_interface name="velocity"/>
+        </joint>
+        <joint name="${prefix}joint_2${joint_2_suffix}">
+          <command_interface name="position"/>
+          <state_interface name="position">
+            <param name="initial_value">0</param>
+          </state_interface>
+          <command_interface name="velocity"/>
+          <state_interface name="velocity"/>
+        </joint>
+        <joint name="${prefix}joint_3${joint_3_suffix}">
+          <command_interface name="position"/>
+          <state_interface name="position">
+            <param name="initial_value">0</param>
+          </state_interface>
+          <command_interface name="velocity"/>
+          <state_interface name="velocity"/>
+        </joint>
+        <joint name="${prefix}joint_4${joint_4_suffix}">
+          <command_interface name="position"/>
+          <state_interface name="position">
+            <param name="initial_value">0</param>
+          </state_interface>
+          <command_interface name="velocity"/>
+          <state_interface name="velocity"/>
+        </joint>
+        <joint name="${prefix}joint_5${joint_5_suffix}">
+          <command_interface name="position"/>
+          <state_interface name="position">
+            <param name="initial_value">0</param>
+          </state_interface>
+          <command_interface name="velocity"/>
+          <state_interface name="velocity"/>
+        </joint>
+        <joint name="${prefix}joint_6${joint_6_suffix}">
+          <command_interface name="position"/>
+          <state_interface name="position">
+            <param name="initial_value">0</param>
+          </state_interface>
+          <command_interface name="velocity"/>
+          <state_interface name="velocity"/>
+        </joint>
+
+        <xacro:if value="${use_mock_hardware or sim_gazebo}">
+          <xacro:insert_block name="sensor_block"/>
+        </xacro:if>
+      </ros2_control>
+    <!-- </xacro:if> -->
+
+    <xacro:if value="${not (use_mock_hardware or sim_gazebo)}" >
+      <ros2_control name="fts_hw" type="sensor" is_async="true" >
+        <hardware>
+          <plugin>iaa_hardware_interfaces/FTSHardwareInterface</plugin>
+          <param name="fts_topic">/tcp_force_torque</param>
+          <param name="force_x_name">force.x</param>
+          <param name="force_y_name">force.y</param>
+          <param name="force_z_name">force.z</param>
+          <param name="torque_x_name">torque.x</param>
+          <param name="torque_y_name">torque.y</param>
+          <param name="torque_z_name">torque.z</param>
+        </hardware>
+        <xacro:insert_block name="sensor_block"/>
+      </ros2_control>
     </xacro:if>
 
     <xacro:if value="$(arg sim_gazebo)">
@@ -135,11 +148,11 @@
           <parameters>${simulation_controllers}</parameters>
           <controller_manager_node_name>${prefix}controller_manager</controller_manager_node_name>
             <ros>
-              <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/feedback:=/follow_joint_trajectory/_action/feedback</remapping>
+              <!-- <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/feedback:=/follow_joint_trajectory/_action/feedback</remapping>
               <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/status:=/follow_joint_trajectory/_action/status</remapping>
               <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/cancel_goal:=/follow_joint_trajectory/_action/cancel_goal</remapping>
               <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/get_result:=/follow_joint_trajectory/_action/get_result</remapping>
-              <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/send_goal:=/follow_joint_trajectory/_action/send_goal</remapping>
+              <remapping>/position_trajectory_controller/follow_joint_trajectory/_action/send_goal:=/follow_joint_trajectory/_action/send_goal</remapping> -->
           </ros>
         </plugin>
       </gazebo>

@@ -9,7 +9,6 @@
 
   <!-- ros2_control mock and simulation plugins -->
   <xacro:arg name="use_mock_hardware" default="false" />
-  <xacro:arg name="sim_gazebo_classic" default="false" />
   <xacro:arg name="sim_gazebo" default="false" />
   <xacro:arg name="simulation_controllers" default="" />
 
@@ -26,7 +25,6 @@
     prefix="$(arg prefix)"
     joints_with_suffix="$(arg joints_with_suffix)"
     use_mock_hardware="$(arg use_mock_hardware)"
-    sim_gazebo_classic="$(arg sim_gazebo_classic)"
     sim_gazebo="$(arg sim_gazebo)"
     simulation_controllers="$(arg simulation_controllers)"
     description_package="$(arg description_package)"
