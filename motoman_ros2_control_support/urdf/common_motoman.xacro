@@ -9,9 +9,6 @@
 
   <!-- ros2_control mock and simulation plugins -->
   <xacro:arg name="use_mock_hardware" default="false" />
-  <xacro:arg name="sim_gazebo_classic" default="false" />
-  <xacro:arg name="sim_gazebo" default="false" />
-  <xacro:arg name="simulation_controllers" default="" />
 
   <xacro:property name="description_package" value="$(arg description_package)"/>
   <xacro:property name="description_macro_file" value="$(arg description_macro_file)"/>
@@ -26,10 +23,6 @@
     prefix="$(arg prefix)"
     joints_with_suffix="$(arg joints_with_suffix)"
     use_mock_hardware="$(arg use_mock_hardware)"
-    sim_gazebo_classic="$(arg sim_gazebo_classic)"
-    sim_gazebo="$(arg sim_gazebo)"
-    simulation_controllers="$(arg simulation_controllers)"
-    description_package="$(arg description_package)"
   />
 
   <xacro:if value="${description_package == 'motoman_gp250_support'}">

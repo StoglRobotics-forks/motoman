@@ -90,26 +90,26 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
     <param name="robot_description" value="$(var robot_description_content)"/>
   </node>
 
-  <!-- ros2_control node -->
-  <node pkg="controller_manager" exec="ros2_control_node" output="screen">
-    <param from="$(var controllers_file_path)"/>
-    <param name="robot_description" value="$(var robot_description_content)"/>
-    <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/feedback"
-           to="/follow_joint_trajectory/_action/feedback"/>
-    <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/status"
-           to="/follow_joint_trajectory/_action/status"/>
-    <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/cancel_goal"
-           to="/follow_joint_trajectory/_action/cancel_goal"/>
-    <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/get_result"
-           to="/follow_joint_trajectory/_action/get_result"/>
-    <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/send_goal"
-           to="/follow_joint_trajectory/_action/send_goal"/>
-  </node>
-
-  <!-- Spawn controllers -->
   <group if="$(var activate_ros2_control)">
-    <node pkg="controller_manager" exec="spawner" args="position_trajectory_controller" />
-    <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster" />
+    <!-- ros2_control node -->
+    <node pkg="controller_manager" exec="ros2_control_node" output="screen">
+      <param from="$(var controllers_file_path)"/>
+      <param name="robot_description" value="$(var robot_description_content)"/>
+      <!-- <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/feedback"
+               to="/follow_joint_trajectory/_action/feedback"/>
+      <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/status"
+               to="/follow_joint_trajectory/_action/status"/>
+      <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/cancel_goal"
+               to="/follow_joint_trajectory/_action/cancel_goal"/>
+      <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/get_result"
+               to="/follow_joint_trajectory/_action/get_result"/>
+      <remap from="/position_trajectory_controller/follow_joint_trajectory/_action/send_goal"
+               to="/follow_joint_trajectory/_action/send_goal"/> -->
+    </node>
+
+    <!-- Spawn controllers -->
+    <node pkg="controller_manager" exec="spawner" args="position_trajectory_controller" output="screen"/>
+    <node pkg="controller_manager" exec="spawner" args="joint_state_broadcaster" output="screen"/>
   </group>
 
   <!-- Load MoveIt Configuration -->
@@ -125,7 +125,7 @@ Source of this file are templates in https://github.com/StoglRobotics/ros_team_w
     <param from="$(var move_group_config_file_path)"/>
     <param from="$(var ompl_planning_file_path)"/>
     <param from="$(var pilz_planning_file_path)"/>
-    <param from="$(var stomp_planning_file_path)"/>
+    <!-- <param from="$(var stomp_planning_file_path)"/> -->
     <param from="$(var pilz_cartesian_limits_file_path)"/>
     <param from="$(var joint_limits_file_path)"/>
     <param from="$(var moveit_controllers_file_path)"/>

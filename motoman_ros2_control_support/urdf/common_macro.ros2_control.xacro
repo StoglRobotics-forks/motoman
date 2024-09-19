@@ -5,11 +5,7 @@
                name
                prefix
                joints_with_suffix:=^|false
-               use_mock_hardware:=^|false
-               sim_gazebo_classic:=^|false
-               sim_gazebo:=^|false
-               simulation_controllers
-               description_package"
+               use_mock_hardware:=^|false"
                >
 
     <xacro:property name="joint_1_suffix" value=""/>
@@ -33,12 +29,6 @@
       <hardware>
         <xacro:if value="${use_mock_hardware}">
           <plugin>mock_components/GenericSystem</plugin>
-        </xacro:if>
-        <xacro:if value="${sim_gazebo_classic}">
-          <plugin>gazebo_ros2_control/GazeboSystem</plugin>
-        </xacro:if>
-        <xacro:if value="${sim_gazebo}">
-          <plugin>ign_ros2_control/IgnitionSystem</plugin>
         </xacro:if>
       </hardware>
 
@@ -86,29 +76,5 @@
       </joint>
 
     </ros2_control>
-
-    <xacro:if value="$(arg sim_gazebo_classic)">
-      <!-- Gazebo plugins -->
-      <gazebo reference="world">
-      </gazebo>
-      <gazebo>
-        <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
-          <parameters>${simulation_controllers}</parameters>
-        </plugin>
-      </gazebo>
-    </xacro:if>
-
-    <xacro:if value="$(arg sim_gazebo)">
-      <!-- Gazebo plugins -->
-      <gazebo reference="world">
-      </gazebo>
-      <gazebo>
-        <plugin filename="libign_ros2_control-system.so" name="ign_ros2_control::IgnitionROS2ControlPlugin">
-          <parameters>${simulation_controllers}</parameters>
-          <controller_manager_node_name>${prefix}controller_manager</controller_manager_node_name>
-        </plugin>
-      </gazebo>
-    </xacro:if>
-
   </xacro:macro>
 </robot>
