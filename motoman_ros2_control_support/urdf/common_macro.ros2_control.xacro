@@ -62,7 +62,7 @@
         </xacro:if>
         <xacro:unless value="${use_mock_hardware or sim_gazebo}">
           <!-- <plugin>motoman_hardware_inteface/MotoROS2HardwareInterface</plugin> -->
-          <plugin>iaa_hardware_interfaces/MotoROS2HardwareInterface</plugin>
+          <plugin>motoros2_hw_interfaces/MotoROS2HardwareInterface</plugin>
           <param name="queue_traj_point_srv_name">/queue_traj_point</param>
           <param name="joint_states_topic_name">/hc20sdtp_joint_states</param>
         </xacro:unless>
@@ -125,7 +125,7 @@
     <xacro:if value="${not (use_mock_hardware or sim_gazebo)}" >
       <ros2_control name="fts_hw" type="sensor" is_async="true" >
         <hardware>
-          <plugin>iaa_hardware_interfaces/FTSHardwareInterface</plugin>
+          <plugin>motoros2_hw_interfaces/FTSHardwareInterface</plugin>
           <param name="fts_topic">/tcp_force_torque</param>
           <param name="force_x_name">force.x</param>
           <param name="force_y_name">force.y</param>
