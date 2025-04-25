@@ -6,6 +6,7 @@
                prefix
                joints_with_suffix:=^|false
                use_mock_hardware:=^|false
+               use_motoros2_hw_interface:=^|false
                sim_gazebo:=^|false
                simulation_controllers
                description_package"
@@ -60,12 +61,12 @@
         <xacro:if value="${use_mock_hardware}">
           <plugin>mock_components/GenericSystem</plugin>
         </xacro:if>
-        <xacro:unless value="${use_mock_hardware or sim_gazebo}">
+        <xacro:if value="${use_motoros2_hw_interface}">
           <!-- <plugin>motoman_hardware_inteface/MotoROS2HardwareInterface</plugin> -->
           <plugin>motoros2_hw_interfaces/MotoROS2HardwareInterface</plugin>
           <param name="queue_traj_point_srv_name">/queue_traj_point</param>
           <param name="joint_states_topic_name">/hc20sdtp_joint_states</param>
-        </xacro:unless>
+        </xacro:if>
       </hardware>
 
       <joint name="${prefix}joint_1${joint_1_suffix}">

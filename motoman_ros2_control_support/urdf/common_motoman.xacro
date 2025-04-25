@@ -9,6 +9,7 @@
 
   <!-- ros2_control mock and simulation plugins -->
   <xacro:arg name="use_mock_hardware" default="false" />
+  <xacro:arg name="use_motoros2_hw_interface" default="false" />
   <xacro:arg name="sim_gazebo" default="false" />
   <xacro:arg name="simulation_controllers" default="" />
 
@@ -20,16 +21,19 @@
 
   <xacro:include filename="$(find motoman_ros2_control_support)/urdf/common_macro.ros2_control.xacro"/>
 
-  <xacro:motoman_common_ros2_control_macro
-    name="$(arg robot_name)"
-    prefix="$(arg prefix)"
-    joints_with_suffix="$(arg joints_with_suffix)"
-    use_mock_hardware="$(arg use_mock_hardware)"
-    sim_gazebo="$(arg sim_gazebo)"
-    simulation_controllers="$(arg simulation_controllers)"
-    description_package="$(arg description_package)"
-  />
-
+  <xacro:if value="$(arg use_mock_hardware)">
+    <xacro:motoman_common_ros2_control_macro
+      name="$(arg robot_name)"
+      prefix="$(arg prefix)"
+      joints_with_suffix="$(arg joints_with_suffix)"
+      use_mock_hardware="$(arg use_mock_hardware)"
+      use_motoros2_hw_interface="$(arg use_motoros2_hw_interface)"
+      sim_gazebo="$(arg sim_gazebo)"
+      simulation_controllers="$(arg simulation_controllers)"
+      description_package="$(arg description_package)"
+    />
+  </xacro:if>
+  
   <xacro:if value="${description_package == 'motoman_gp250_support'}">
     <xacro:motoman_gp250 prefix="$(arg prefix)"/>
   </xacro:if>
