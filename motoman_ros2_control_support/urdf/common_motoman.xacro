@@ -18,6 +18,7 @@
   <xacro:property name="robot_name" value="$(arg robot_name)"/>
   <!-- convert to property to use substitution in function -->
   <xacro:include filename="$(find ${description_package})/urdf/${description_macro_file}"/>
+  <xacro:property name="initial_positions_file" value="$(find ${description_package})/config/initial_positions.yaml"/>
 
   <xacro:include filename="$(find motoman_ros2_control_support)/urdf/common_macro.ros2_control.xacro"/>
 
@@ -31,6 +32,7 @@
       sim_gazebo="$(arg sim_gazebo)"
       simulation_controllers="$(arg simulation_controllers)"
       description_package="$(arg description_package)"
+      initial_positions="${xacro.load_yaml(initial_positions_file)}"
     />
   </xacro:if>
   
