@@ -8,7 +8,7 @@
   <xacro:arg name="description_macro_file" default="" />
 
   <!-- ros2_control mock and simulation plugins -->
-  <xacro:arg name="use_mock_hardware" default="false" />
+  <xacro:arg name="use_mock_hardware" default="true" />
 
   <xacro:property name="description_package" value="$(arg description_package)"/>
   <xacro:property name="description_macro_file" value="$(arg description_macro_file)"/>
@@ -18,6 +18,7 @@
 
   <xacro:include filename="$(find motoman_ros2_control_support)/urdf/common_macro.ros2_control.xacro"/>
 
+  <!-- Activate the controller to run scenario without the real robot connection -->
   <xacro:motoman_common_ros2_control_macro
     name="$(arg robot_name)"
     prefix="$(arg prefix)"

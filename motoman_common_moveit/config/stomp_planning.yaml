@@ -1,7 +1,8 @@
 /**:
   ros__parameters:
     stomp:
-      planning_plugins: [stomp_moveit/StompPlanner]
+      planning_plugins: 
+        - stomp_moveit/StompPlanner
       request_adapters:
         - default_planning_request_adapters/ResolveConstraintFrames
         - default_planning_request_adapters/ValidateWorkspaceBounds
